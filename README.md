@@ -2,5 +2,5 @@
 
 The pdf can be found below
 
-<embed src="./main.pdf" type="application/pdf" width="75%" height="auto" />
+https://docs.google.com/viewer?url=https://github.com/AM-ops/Hons-Project-Documentation/raw/main/main.pdf
 
