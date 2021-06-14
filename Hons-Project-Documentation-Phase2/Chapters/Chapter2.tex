@@ -83,7 +83,7 @@ In the fields of complexity, and computation a vast array of work has been done 
 \section{Informal settlements}
 Informal settlements are housing dwellings that are part of urban districts or neighbourhoods that arise and develop without oversight or control from the state. They are synonymous with 'slums' or 'squatters', though are not the same. They form an integral element of urban sustainability whereby developing cities can not develop without them. The connotations with 'informal', 'slums', and 'squatter' have always been seen in a negative light. This is not seen as beneficial as the growth of urbanisation is highly intertwined with informal settlements.\citep{dovey2011forms}\\
 Across the globe informal settlements are known colloquially by their own variety of terms. \citep{un} In this project the umbrella term informal settlement will be utilised.\\
-The process of informal settlements growth can be grouped into three categories namely;\citep{dovey2011forms}
+The process or principles of informal settlements growth can be grouped into three categories namely;\citep{dovey2011forms}
 \begin{itemize}
 \item \textsl{settling} - simply settling down on what is usually unclaimed land
 \item \textsl{inserting} - usually into urban areas that are abandoned, or uninhabited
@@ -91,12 +91,59 @@ The process of informal settlements growth can be grouped into three categories 
 \end{itemize}
 In morphological terms, informal settlements can be classified into eight different types. This refers to the urban conditions rather that the process mentioned above, however it is not to say that the two are mutually exclusive. The types are not mutually exclusive from each other either. The types are as follows:\citep{dovey2011forms}
 \begin{itemize}
-\item Districts - 
-\item Waterfronts - 
-\item Escarpments - 
-\item Easements - 
-\item Sidewalks - 
-\item Adherences -
-\item Backstages -
-\item Enclosures - 
+\item Districts - most popular where over long periods of time the settlement grows to encompass mixed-use districts with both retail, and industrial functionality.
+\item Waterfronts - settlements between land and water, whether it is a lake, harbour, river, canal to name a few. Prone to water issues such as flooding if the climate is such.
+\item Escarpments - settlements on urban topography that is usually too steep to build formal structures. an example location would be an area between a mountain and a city. Can be prone to earthquakes, landslides, and mudslides if the climate is such. Transportation is another key concern.
+\item Easements - Major infrastructure in urban cities such as roads, railways, pipelines to name a few offer \textsl{'buffer'} zones which can become informal settlements.
+\item Sidewalks - These settlements emerge when public area such as sidewalks have an area where people can set up dwellings, even if for temporary usage.
+\item Adherences - Related to the principle mentioned above.
+\item Backstages - Settlements hidden from the public's gaze. Becomes more informal the \textsl{'deeper'} one goes from a formal street frontage.
+\item Enclosures - Settlements where the \textsl{'shell'} is contained with in another urban building.
 \end{itemize}
+Informal settlement residents just like the residents of formal settlements have a desire for a good quality of life. Factors that influence this quality of life include food storage and preparation, water, sanitation, air quality and pollution, electricity, health risks, access to public facilities and amenities, among other things.\citep{richards2007measuring}\\
+Richards et al. (2007), further sates that everyday problems such as unemployment, and crime also influence the quality of life. The paper further stipulates that the research can be expanded further to look into spatial and temporal factors that influence informal settlements.\\\\
+The characteristics of informal settlements transcend the physical and are closely knitted with socio-economic as well as political conditions.\citep{wekesa}
+\section{Modelling Urban Development}
+The phenomenon of urbanisation in the last century has drastically increased from a mere 13\% in 1900 to a 49\% in 2005. The current projected estimates for the year 2030 in 60\%. The majority of this urbanisation is still going to occur in the developing nations.\citep{un2005}\\\\
+One of the three factors that is going to influence humans directly in the near future is the land-use/land cover change. This will affect policy makers, geographers, and planners all alike. This is thanks to the socio–environmental consequences of the spatio-temporal process of urban development.\citep{vitousek1994beyond,liu2008modelling}\\\\
+When it comes to geographic models they can be categorised into three categories of increasing abstraction.\citep{thomas1980modelling} The models are as follows:
+\begin{itemize}
+\item Scale
+\begin{itemize}
+\item Iconic
+\item Analogue
+\end{itemize}
+\item Conceptual or Diagrammatical
+\item Mathematical
+\begin{itemize}
+\item Probability
+\item Deterministic 
+\end{itemize}
+\end{itemize}
+The mathematical models are therefore the highest level of abstraction. Scale models mimic reality but are miniaturised copies of the real world. The main difference between Iconic and Analogue is the later besides being replicas they tend to transform certain properties of the real world system, e.g. using wool for clouds. Conceptual models are concerned with the relationships that exist between components in the system e.g. a sewage system can be denoted with arrows and boxes on a diagram. Mathematical models if in their purest form translate a conceptual model in to pure, formal, and symbolic logic of mathematics.\citep{thomas1980modelling}\\\\
+The flow chart of the modelling process is shown below.
+\begin{center}
+\begin{tikzpicture}[node distance=2cm]
+\node (start) [startstop] {Beginning};
+\node (pro1) [process, below of=start] {Identify problem in the real-world};
+\node (pro2) [process, below of=pro1] {Set-up and formulate model};
+\node (pro3) [process, below of=pro2] {Implement model in a program};
+\node (pro4) [process, below of=pro3] {Calibrate and refine outcome};
+\node (pro5) [process, below of=pro4] {Satisfactory outcome?};
+\node (stop) [startstop, below of=pro5] {Modelling process complete};
+\node (no) [startstop, right of=pro5, xshift=3cm] {No};
+\draw [arrow] (start) -- (pro1);
+\draw [arrow] (pro1) -- (pro2);
+\draw [arrow] (pro2) -- (pro3);
+\draw [arrow] (pro3) -- (pro4);
+\draw [arrow] (pro4) -- (pro5);
+\draw [arrow] (pro5) -- (stop);
+\draw [arrow] (pro5) -- node[anchor=east] {yes} (stop);
+\draw [arrow] (pro5) -- (no);
+\draw [arrow] (no) |- (pro1);
+\end{tikzpicture}
+\\Source: Own Creation (2021) adapted from \citep{liu2008modelling}
+\end{center}
+Before continuing it should be noted that one of the major pitfalls of models are they are a simplified view of reality, hence they can tend to leave certain facts behind of reality.\citep{liu2008modelling}\\\\
+One of the earliest models created in geography and urban modelling dates back to the 1800s where Johann Heinrich von Th{\"u}nen in his book titled \textsl{Der isolierte Staat} translated to mean \textsl{The Isolated State} discussed maximising agricultural production.\citep{clark1967thunen}\\
+Other seminal research included the like of Alfred Weber in the early 1900s published the title \textsl{{\"U}ber den Standort der Industrien} which translates to \textsl{Theory of the Location of Industries} This work created models based on real-world conditions.\citep{fearon2006alfred}
