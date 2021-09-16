@@ -38,5 +38,5 @@ This phase consisted of the following:
   - Modelling Urban Development
 
 ## TODO:
-- [ ] Phase 3
+- [x] Phase 3
 - [ ] Phase 4
