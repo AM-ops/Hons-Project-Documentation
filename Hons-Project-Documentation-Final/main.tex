@@ -24,7 +24,7 @@
 
 \documentclass[
 12pt, % The default document font size, options: 10pt, 11pt, 12pt
-oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
 english, % ngerman for German
 onehalfspacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
@@ -56,6 +56,11 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{caption}
 \usepackage[list=false]{subcaption}
 
+\usepackage{tikz}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
 %----------------------------------------------------------------------------------------
@@ -93,12 +98,6 @@ headsepline, % Uncomment to get a line under the header
 \hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
 \hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
 }
-
-\usepackage{tikz}
-\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
-\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=orange!30]
-\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
-\tikzstyle{arrow} = [thick,->,>=stealth]
 
 \begin{document}
 
@@ -226,7 +225,6 @@ Acknowledgements will come here in the future.
 %\textbf{WHO} & \textbf{W}orld \textbf{H}ealth \textbf{O}rganisation\\
 \textbf{UN} & \textbf{U}nited \textbf{N}ations\\
 \textbf{StatsSA} & \textbf{Stat}istic\textbf{s} \textbf{S}outh \textbf{A}frica\\
-\textbf{GIS} & \textbf{G}eographic \textbf{I}nformation \textbf{S}ystem\\
 %
 \end{abbreviations}
 
@@ -263,7 +261,7 @@ Acknowledgements will come here in the future.
 %	DEDICATION
 %----------------------------------------------------------------------------------------
 
-\dedicatory{Dedicated to John Horton Conway (1937-2020)} 
+%\dedicatory{For/Dedicated to/To my\ldots} 
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
@@ -277,7 +275,7 @@ Acknowledgements will come here in the future.
 % Uncomment the lines as you write the chapters
 
 \include{Chapters/Chapter1}
-\include{Chapters/Chapter2}
+\include{Chapters/Chapter2} 
 %\include{Chapters/Chapter3}
 %\include{Chapters/Chapter4} 
 %\include{Chapters/Chapter5} 
@@ -291,8 +289,8 @@ Acknowledgements will come here in the future.
 % Include the appendices of the thesis as separate files from the Appendices folder
 % Uncomment the lines as you write the Appendices
 
-%\include{Appendices/AppendixA}
-%\include{Appendices/AppendixB}
+\include{Appendices/AppendixA}
+\include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
 
 %----------------------------------------------------------------------------------------
