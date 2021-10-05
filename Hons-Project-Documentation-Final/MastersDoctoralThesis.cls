@@ -244,7 +244,7 @@
 %	COLOURS
 %----------------------------------------------------------------------------------------
 
-\usepackage{xcolor} % Required for specifying custom colours
+\usepackage[dvipsnames]{xcolor} % Required for specifying custom colours
 
 \colorlet{mdtRed}{red!50!black}
 
@@ -455,6 +455,34 @@ KOMA-script documentation for details.}]{fancyhdr}
 }
 
 %----------------------------------------------------------------------------------------
+%	CONFLICT PAGE DESIGN
+%----------------------------------------------------------------------------------------
+
+\usepackage{xcolor}
+\colorlet{mdtRed}{red!50!black}
+\newcommand{\confliname}{Conflict of Interest}
+\providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish} {\confliname}{Conflict of Interest} % Acknowledgement text for English countries
+\providecaptionname{german,ngerman,austrian,naustrian}{\confliname}{Danksagung} % Acknowledgement text for Germanic countries
+
+\ifbool{consistentlayout}{
+	\DeclareDocumentEnvironment{confli}{}{%
+		\tttypeout{\confliname}
+		\addchap*{\confliname}
+	}
+}
+{
+	\DeclareDocumentEnvironment{confli}{}{%
+		\checktoopen
+		\tttypeout{\confliname}
+		\thispagestyle{plain}
+		\begin{center}{\huge\textit{\confliname}\par}\end{center}
+	}
+	{
+		\vfil\vfil\null
+	}
+}
+
+%----------------------------------------------------------------------------------------
 %	DEDICATION PAGE DESIGN
 %----------------------------------------------------------------------------------------
 
@@ -524,7 +552,7 @@ bookmarksopenlevel=0,
 hypertexnames=false,
 colorlinks=true,% Set to false to disable coloring links
 citecolor=magenta,% The color of citations
-linkcolor=red,% The color of references to document elements (sections, figures, etc)
+linkcolor=RoyalBlue,% The color of references to document elements (sections, figures, etc)
 urlcolor=mdtRed,% The color of hyperlinks (URLs)
 pdfstartview={FitV},
 unicode,
