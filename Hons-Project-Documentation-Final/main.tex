@@ -209,6 +209,7 @@ Abstract will come here in the future.
 %----------------------------------------------------------------------------------------
 
 \begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname}
 %\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
 %The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
 I would like to extend my heartfelt gratitude to the following:
@@ -235,10 +236,12 @@ I would like to extend my heartfelt gratitude to the following:
 
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
 %
+\addchaptertocentry{\abbrevname}
 \textbf{CA} & \textbf{C}ellular \textbf{A}utomata\\
 %\textbf{WHO} & \textbf{W}orld \textbf{H}ealth \textbf{O}rganisation\\
 \textbf{UN} & \textbf{U}nited \textbf{N}ations\\
 \textbf{StatsSA} & \textbf{Stat}istic\textbf{s} \textbf{S}outh \textbf{A}frica\\
+\textbf{GIS} & \textbf{G}eographic \textbf{I}nformation \textbf{S}ystem\\
 %
 \end{abbreviations}
 
@@ -295,6 +298,14 @@ I would like to extend my heartfelt gratitude to the following:
 \include{Chapters/Chapter5}
 
 %----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
 
@@ -306,13 +317,4 @@ I would like to extend my heartfelt gratitude to the following:
 \include{Appendices/AppendixA}
 \include{Appendices/AppendixB}
 \include{Appendices/AppendixC}
-
-%----------------------------------------------------------------------------------------
-%	BIBLIOGRAPHY
-%----------------------------------------------------------------------------------------
-
-\printbibliography[heading=bibintoc]
-
-%----------------------------------------------------------------------------------------
-
 \end{document}  
