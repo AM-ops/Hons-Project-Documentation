@@ -1,0 +1,1 @@
+jupyter nbconvert Artefact.ipynb --to latex
