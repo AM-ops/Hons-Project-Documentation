@@ -13,39 +13,120 @@ For the entire development of the Artefact a combination of three methodologies 
 \end{itemize}
 The rationale for utilising this combination was due to the following factors:
 \begin{itemize}
-\item The emphasis on self-management for the development of the Artefact
-\item Incremental changes made in short iterations
-\item Segmenting problems into "chunks" and thereafter working on them in an iterative manner
+\item The emphasis on self-management for the design and development of the Artefact.
+\item Incremental changes made in short iterations.
+\item Segmenting problems into "chunks" and thereafter working on them in an iterative manner.
 \end{itemize}
-\section{Data acquisition}
+\section{Data Acquisition}
 \subsection{Closed Sourced Data}
-After the Literature Review was conducted the search for data began. A company by the name GeoTerraImage (Pty) Ltd\footnote{\url{https://geoterraimage.com/}} which is located in Pretoria, South Africa was contacted and a data request was filed. The data received was for an Informal settlement named \textit{"Melusi"}. The author is grateful for the data provided. The dataset received contained three main points of interest to this research:
+After the Literature Review was conducted the search for data began. A company by the name of GeoTerraImage (Pty) Ltd\footnote{\url{https://geoterraimage.com/}} which is located in Pretoria, South Africa was contacted and a data request was filed. The GIS data received was for an Informal settlement named \textit{"Melusi"}. The author is grateful for the data provided. The dataset received contained three main points of interest to this research:
 \begin{itemize}
 \item The outline or boundary of the \textit{"Melusi"} area.
-\item The Land Usage in the form of housing for the year 2010.
-\item The Land Usage in the form of housing for the year 2020.
+\item The Land Usage in the form of housing for the year 2010 for \textit{Melusi}.
+\item The Land Usage in the form of housing for the year 2020 for \textit{Melusi}.
 \end{itemize}
 \subsection{Open Sourced Data}
+To assist with the CA modelling additional data was needed. The following two websites  were utilised:
+\begin{itemize}
+\item The Humanitarian Data Exchange\footnote{\url{https://data.humdata.org/}}
+\item The South African Department of Water and Sanitation\footnote{\url{https://www.dwa.gov.za/}}
+\end{itemize}
+From the above mentioned websites the following GIS data was acquired:
+\begin{itemize}
+\item All the medium-scale river coverage in South Africa.\footnote{\url{https://www.dws.gov.za/iwqs/gis_data/river/rivs500k.aspx}} This dataset was in the \texttt{.SHP} format.
+\item All the Road networks in South Africa provided by HOTOSM (Humanitarian OpenStreetMap Team) and available for download by HDX (The Humanitarian Data Exchange).\footnote{\url{https://data.humdata.org/dataset/hotosm_zaf_roads}} This dataset was in the \texttt{.SHP} format.
+\item High Resolution Population Density Maps \& Demographic Estimates in South Africa in the year 2019 which was once again made available for download by HDX.\footnote{\url{https://data.humdata.org/dataset/cbfc4206-35c8-42d4-a096-b2dd0aec983d}}
+\end{itemize}
 \section{Data Exploration and Preprocessing}
 \subsection{Usage of Geographic Information Systems}
-The use of Geographic Information Systems (GIS) were not greatly successful in this research. The factors limiting the usage were; the lack of packages, libraries, add-ons, or plug-ins that function "out-of-the-box", the ones that do work tend to fulfil niched application or specific problems.
+\label{sec:GIS}
+The use of Geographic Information Systems (GIS) was not greatly successful in this research. The factors limiting the usage were; the lack of packages, libraries, add-ons, or plug-ins that function "out-of-the-box", the ones that do work tend to fulfill niched application or specific problems.
 
 Additional issues encountered were as follows:
 \begin{itemize}
-\item Incompatibility of Operating Systems
-\item Data formats were incompatible with packages
+\item Incompatibility of Operating Systems.
+\item GIS data formats were incompatible.
+\item Researchers publising their Masters or Doctorates research made custom tools that were specific to their research.
 \end{itemize}
 The following GIS tools were utilised in the early stages of the research:
 \begin{itemize}
-\item ESRI's ArcGIS (Proprietary commercial software)
-\item QGIS (Open-source software)
+\item ESRI's ArcGIS (Proprietary commercial software).\footnote{\url{https://www.esri.com/en-us/home}}
+\item QGIS (Open-source software).\footnote{\url{https://qgis.org/en/site/}}
 \end{itemize}
 
-The following packages/plugins/libraries were also utilised in the early stages of the research:
+The following packages, libraries, add-ons, or plug-ins were also utilised in the early stages of the research:
 \begin{itemize}
-\item MOLUSCE - A plugin for QGIS for Land Use Change Evaluation\footnote{\url{https://wiki.gis-lab.info/w/Landscape_change_analysis_with_MOLUSCE_-_methods_and_algorithms}}
-\item TerraME - A Multiparadigm Modeling Toolkit\footnote{\url{http://www.terrame.org/doku.php}}
-\item GeoSOS (Geographic Simulation \& Optimization System) - A standalone program or as an add-on for ArcGIS\footnote{\url{https://www.geosimulation.cn/GeoSOS/}}
+\item MOLUSCE - A plugin for QGIS for Land Use Change Evaluation.\footnote{\url{https://wiki.gis-lab.info/w/Landscape_change_analysis_with_MOLUSCE_-_methods_and_algorithms}}
+\item TerraME - A Multiparadigm Modeling Toolkit.\footnote{\url{http://www.terrame.org/doku.php}}
+\item GeoSOS (Geographic Simulation \& Optimization System) - A standalone program or as an add-on for ArcGIS.\footnote{\url{https://www.geosimulation.cn/GeoSOS/}}
 \end{itemize}
-\subsection{GIS Data handling}
-The 
+These endeavours were also unfruitful with the reasons being the same as mentioned above.
+
+It should be noted that the above packages do have CA modelling capabilities but were limited. The author embarked on creating his own model.
+
+Lastly, another key hurdle was the availability of some tools which required the use of programming languages that were out of the scope of this author's skill set.
+
+The dataset that were acquired up until this point had to analysed, therefore the next logical step was to load the GIS data into the GIS software to provide a quick overview.
+\subsection{Handling of GIS Data in GIS Software}
+The datasets were loaded first into ArcGIS and thereafter into QGIS. The figures below demonstrate the output achieved.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{Figures/Chapter3/ArcGIS}
+\caption{Output of the datasets in ArcGIS}
+\label{fig:Arc}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{Figures/Chapter3/QGIS}
+\caption{Output of the datasets in QGIS}
+\label{fig:Q}
+\end{figure}
+In the Figure \ref{fig:Arc} where ArcGIS is shown, the dark green colour represent Land Usage in the year 2020, however the Land Usage for the year 2010 was blended inside the bigger Land Usage of 2020. The lighter green colour represents the roads network in the year 2019.
+
+In the next Figure \ref{fig:Q} where QGIS is shown, the black colour represents the population dataset, the light green colour represents the boundary of the \textit{Melusi} area. The blue colour represents the Land Usage for the year 2010, and the purple colour is the Land Usage for the year 2020. Lastly, the light pink colour represents the roads network in the year 2019.
+
+At this juncture the dataset for the medium-scale river coverage was dropped from the research as both the GIS software indicated that there was not any rivers close by  in the area.
+
+As was mentioned in Section \ref{sec:GIS} this was the limit of the GIS software usage in this research. The next approach was to utilise the Python programming language as well as its vast array of libraries.
+\subsection{Handling of GIS Data with Python}
+The primary approach used with Python was the use of Python Notebooks. These were run in two different environments:
+\begin{itemize}
+\item Locally using Jupyter Notebook.\footnote{\url{https://jupyter.org/}}
+\item On the cloud using Google Colaboratory.\footnote{\url{https://research.google.com/colaboratory/}}
+\end{itemize}
+Jupyter Notebook utilises the local resources an individual has on a computer to run Python code.
+
+Google Colab is an example of Platform as a Service (PaaS), and Infrastructure as a Service (IaaS) combined into one service.
+
+PaaS is a cloud service model which supports application development in the cloud using languages and other tools. IaaS on the other hand is cloud service model which offers network components, storage, and processing in the cloud.\cite{pf} These service models do not require users to have powerful computing components as it is "outsourced" to these vendors such as Google.
+
+Therefore, the only requirement for Google Colab is to utilise a modern browser that is capable of opening the Colab website to run Python code.
+\\\\
+The Geopandas\footnote{\url{https://geopandas.org/}} and the Matplotlib\footnote{\url{https://matplotlib.org/}} libraries were utilised to load the datasets and carry out elementary visual analysis. Additionally, the library called Folium\footnote{\url{https://python-visualization.github.io/folium/}} was utised to create an interactive map to demonstrate the boundaries of \textit{Melusi} in repect to other surrounding regions.
+
+The first dataset to be loaded was the \textit{Melusi} dataset which had the \texttt{.SHP} files. This was done using the Geopandas \texttt{read\_file} method.\footnote{\url{https://geopandas.org/docs/reference/api/geopandas.read_file.html}}\\\\
+For the library Folium the \texttt{map} method\footnote{\url{https://python-visualization.github.io/folium/modules.html\#module-folium.map}} was utilised after the coordinates were extracted from the data loaded into Geopandas and visualisations were made using Matplotlib. The \texttt{pyplot.plot} method\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\#matplotlib.pyplot.plot}} was used for this step.
+
+Below are a few figures that were created in this process. The coordinates of this region can also be seen in the figures above.
+For more information on these steps involved, the Appendix \ref{AppendixC} has more details.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/MelusiArea}
+\caption{The boundary of the \textit{Melusi} area}
+\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/Melusi2010}
+\caption{The Land Usage of the \textit{Melusi} area in 2010}
+\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/Melusi2020}
+\caption{The Land Usage of the \textit{Melusi} area in 2020}
+\end{figure}
+Once the coordinates were acquired the Folium interactive map was created of the \textit{Melusi} area. This is shown below. The surrounding suburbs and regions can also be seen. The url link for this can be accessed
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/Folium}
+\caption{Interactive map of the \textit{Melusi} area}
+\end{figure}
