@@ -161,7 +161,7 @@ In the next procedure the following has to be kept in mind; the aforementioned t
 
 Thereafter, this boundary limit was applied to the data structures mentioned earlier. This is done through the \texttt{cx} property\footnote{\url{https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.cx.html}} from Geopandas and was applied to the road networks \texttt{GeoDataFrame}. The \texttt{rio.clip\_box} method\footnote{\url{https://corteva.github.io/rioxarray/stable/_modules/rioxarray/raster_array.html\#RasterArray.clip_box}} from Rioxarray was applied to the population \texttt{DataArray}.
 
-Matplotlib was once agian employed for plotting purposes. The resulting images for the population and road networks datasets is shown in Figures \ref{fig:popgraph} and \ref{fig:roadgraph}.
+Matplotlib was once again employed for plotting purposes. The resulting images for the population and road networks datasets is shown in Figures \ref{fig:popgraph} and \ref{fig:roadgraph}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/Roads2019}
@@ -181,4 +181,7 @@ Matplotlib was once agian employed for plotting purposes. The resulting images f
 %ax.autoscale(enable=False)
 %ax.autoscale(enable=False)
 %plt.savefig("roads-nox.jpg",dpi=1200)
-The next process involved saving high quality images. This was done as a 2-Dimensional grid is needed for a CA model. An image is in essence a 2-Dimensional grid whereby the width and height is predefined and any pixel can be referenced in using a 2-Dimensional co-ordinate system.
+The next process involved exporting or saving high quality images of all the figures shown above namely; Figures \ref{fig:mel2010}, \ref{fig:mel2020}, \ref{fig:roadgraph}, and \ref{fig:popgraph}. A 2-Dimensional grid or lattice is needed for a CA model hence the need to export the images. An image is in essence a 2-Dimensional grid whereby the width and height is predefined and any pixel in the image can be referenced using a 2-Dimensional co-ordinate system.
+
+The pixel density (known as Dots Per Inch or DPI)\cite{dpi} was set to 1,200 and the Matplotlib library's \texttt{pyplot.savefig}\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html}} method was called to save all the images. Additionally, the axes were set to be turned off\footnote{\url{https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.set_axis_off.html}} and, the autoscale\footnote{\url{https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.autoscale.html}} for figures was set to \texttt{False}.
+\subsection{Image Processing with OpenCV} 
