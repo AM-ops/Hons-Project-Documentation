@@ -26,6 +26,7 @@ After the Literature Review was conducted the search for data began. A company b
 \item The Land Usage in the form of housing for the year 2020 for \textit{Melusi}.
 \end{itemize}
 \subsection{Open Sourced Data}
+\label{sec:open}
 To assist with the CA modelling additional data was needed. The following two websites  were utilised:
 \begin{itemize}
 \item The Humanitarian Data Exchange\footnote{\url{https://data.humdata.org/}}
@@ -35,7 +36,7 @@ From the above mentioned websites the following GIS data was acquired:
 \begin{itemize}
 \item All the medium-scale river coverage in South Africa.\footnote{\url{https://www.dws.gov.za/iwqs/gis_data/river/rivs500k.aspx}} This dataset was in the \texttt{.SHP} format.
 \item All the Road networks in South Africa provided by HOTOSM (Humanitarian OpenStreetMap Team) and available for download by HDX (The Humanitarian Data Exchange).\footnote{\url{https://data.humdata.org/dataset/hotosm_zaf_roads}} This dataset was in the \texttt{.SHP} format.
-\item High Resolution Population Density Maps \& Demographic Estimates in South Africa in the year 2019 which was once again made available for download by HDX.\footnote{\url{https://data.humdata.org/dataset/cbfc4206-35c8-42d4-a096-b2dd0aec983d}}
+\item High Resolution Population Density Maps \& Demographic Estimates in South Africa in the year 2019 which was once again made available for download by HDX.\footnote{\url{https://data.humdata.org/dataset/cbfc4206-35c8-42d4-a096-b2dd0aec983d}} This dataset was in the \texttt{.TIF} format.
 \end{itemize}
 \section{Data Exploration and Preprocessing}
 \subsection{Usage of Geographic Information Systems}
@@ -105,7 +106,7 @@ Therefore, the only requirement for Google Colab is to utilise a modern browser 
 The Geopandas\footnote{\url{https://geopandas.org/}} and the Matplotlib\footnote{\url{https://matplotlib.org/}} libraries were utilised to load the datasets and carry out elementary visual analysis. Additionally, the library called Folium\footnote{\url{https://python-visualization.github.io/folium/}} was utised to create an interactive map to demonstrate the boundaries of \textit{Melusi} in repect to other surrounding regions.
 
 The first dataset to be loaded was the \textit{Melusi} dataset which had the \texttt{.SHP} files. This was done using the Geopandas \texttt{read\_file} method.\footnote{\url{https://geopandas.org/docs/reference/api/geopandas.read_file.html}}\\\\
-For the library Folium the \texttt{map} method\footnote{\url{https://python-visualization.github.io/folium/modules.html\#module-folium.map}} was utilised after the coordinates were extracted from the data loaded into Geopandas and visualisations were made using Matplotlib. The \texttt{pyplot.plot} method\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\#matplotlib.pyplot.plot}} was used for this step.
+From the Folium library the \texttt{map} method\footnote{\url{https://python-visualization.github.io/folium/modules.html\#module-folium.map}} was utilised after the coordinates were extracted from the data loaded into Geopandas and visualisations were made using Matplotlib. The \texttt{pyplot.plot} method\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\#matplotlib.pyplot.plot}} was used for this step.
 
 Below are a few figures that were created in this process. The coordinates of this region can also be seen in the figures above.
 For more information on these steps involved, the Appendix \ref{AppendixC} has more details.
@@ -126,18 +127,58 @@ For more information on these steps involved, the Appendix \ref{AppendixC} has m
 \caption{The Land Usage of the \textit{Melusi} area in 2020}
 \label{fig:mel2020}
 \end{figure}
-Once the coordinates were acquired the Folium interactive map was created of the \textit{Melusi} area. This is shown below in Figure \ref{fig:fol}. The surrounding suburbs and regions can also be seen. The webpage for this can be accessed at \url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area.html}
-
+Once the coordinates were acquired the Folium interactive map was created of the \textit{Melusi} area. This is shown below in Figures \ref{fig:fol} and \ref{fig:fol2}. The surrounding suburbs and regions can also be seen. The webpages for these can be accessed here\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area.html}}$^{,}$\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area2.html}}
 The file can be downloaded and thereafter viewed interactively in a browser.
 
 The Land Usage for 2010 and 2020 can be seen in Figures \ref{fig:mel2010} and \ref{fig:mel2020}
 \begin{landscape}
-\hspace*{5cm}
-\vspace*{2cm}
+\centering
 \begin{figure}[!h]
-\includegraphics[width=20cm,height=15cm,keepaspectratio]{Figures/Chapter3/Folium}
+%\includegraphics[width=20cm,height=15cm,keepaspectratio]{Figures/Chapter3/Folium}
+\includegraphics[scale=0.6]{Figures/Chapter3/Folium}
 \caption{Interactive map of the \textit{Melusi} area}
 \label{fig:fol}
 \end{figure}
-\end{landscape}
 
+\pagebreak
+
+%\hspace*{5cm}
+%\vspace*{2cm}
+\centering
+\begin{figure}[!h]
+\includegraphics[scale=0.6]{Figures/Chapter3/Folium2}
+\caption{Another Interactive map of the \textit{Melusi} area}
+\label{fig:fol2}
+\end{figure}
+\end{landscape}
+After the above \textit{Melusi} area datasets were explored the next two variables needed to be explored. These were the road networks and the population datasets.
+
+The road networks dataset as was mentioned in Section \ref{sec:open} is in the \texttt{.SHP} format, therefore once again the Geopandas \texttt{read\_file} method was employed to read the data. However the population dataset was in the \texttt{.TIF} format therefore another library Rioxarray had to be utilised.\footnote{\url{https://corteva.github.io/rioxarray/stable/rioxarray.html}} The method from this library is to read the file is\texttt{open\_rasterio}.
+
+Data that is loaded using Geopandas is stored in \texttt{GeoDataFrames} whereas the data loaded using Rioxarray is stored in \texttt{DataArrays}. Each of these data structures have different methods and properties that allow for the manipulation of the data. This is demonstrated below.
+
+In the next procedure the following has to be kept in mind; the aforementioned two datasets contain data for the entirety of South Africa, therefore they have to be limited to just the \textit{Melusi} area. To accomplish this firstly, the \textit{Melusi} area's boundary was extracted using the \texttt{GeoSeries.total\_bounds} property\footnote{\url{https://geopandas.readthedocs.io/en/latest/docs/reference/api/geopandas.GeoSeries.total_bounds.html}} provided by Geopandas.
+
+Thereafter, this boundary limit was applied to the data structures mentioned earlier. This is done through the \texttt{cx} property\footnote{\url{https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.cx.html}} from Geopandas and was applied to the road networks \texttt{GeoDataFrame}. The \texttt{rio.clip\_box} method\footnote{\url{https://corteva.github.io/rioxarray/stable/_modules/rioxarray/raster_array.html\#RasterArray.clip_box}} from Rioxarray was applied to the population \texttt{DataArray}.
+
+Matplotlib was once agian employed for plotting purposes. The resulting images for the population and road networks datasets is shown in Figures \ref{fig:popgraph} and \ref{fig:roadgraph}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/Roads2019}
+\caption{The Road Networks in the \textit{Melusi} area as of 2019}
+\label{fig:roadgraph}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/Population2019}
+\caption{The Population Density of the \textit{Melusi} area as of 2019}
+\label{fig:popgraph}
+\end{figure}
+%ax = roads.plot(color="black", figsize=(7,5))
+%ax.set\_axis\_off()
+%ax.set(xlim=(xmin, xmax), ylim=(ymin, ymax))
+%ax.autoscale\_view(scalex=False, scaley=False)
+%ax.autoscale(enable=False)
+%ax.autoscale(enable=False)
+%plt.savefig("roads-nox.jpg",dpi=1200)
+The next process involved saving high quality images. This was done as a 2-Dimensional grid is needed for a CA model. An image is in essence a 2-Dimensional grid whereby the width and height is predefined and any pixel can be referenced in using a 2-Dimensional co-ordinate system.
