@@ -135,3 +135,68 @@ Chapter 4 - Discussion\\
 The focus in this section will be to analyse the results gained from the model and compare them to the relevant literature discussed before. Further assumptions and claims are also discussed here. Lastly, comparisons with other students' work will be discussed.\\
 Chapter 5 - Conclusion\\
 The research project is closed off and further insights for the future can also be given. Aim and objectives are re-examined to ensure if they were achieved.
+
+%\begin{figure}[h!]
+%\begin{center}
+%
+%\begin{ganttchart}[y unit title=0.4cm,
+%y unit chart=0.5cm,
+%vgrid,hgrid, 
+%title label anchor/.style={below=-1.6ex},
+%title left shift=.05,
+%title right shift=-.05,
+%title height=1,
+%bar/.style={fill=gray!50},
+%incomplete/.style={fill=white},
+%progress label text={},
+%bar height=0.7,
+%group right shift=0,
+%group top shift=.6,
+%group height=.3,
+%group peaks={}{}{.2}]{24}
+%%labels
+%\gantttitle{Week}{24} \\
+%\gantttitle{Monday}{4} 
+%\gantttitle{Tuesday}{4} 
+%\gantttitle{Wednesday}{4} 
+%\gantttitle{Thursday}{4} 
+%\gantttitle{Friday}{4} 
+%\gantttitle{Saturday}{4} \\
+%%tasks
+%\ganttbar{first task}{1}{2} \\
+%\ganttbar{task 2}{3}{8} \\
+%\ganttbar{task 3}{9}{10} \\
+%\ganttbar{task 4}{11}{15} \\
+%\ganttbar[progress=33]{task 5}{20}{22} \\
+%\ganttbar{task 6}{18}{19} \\
+%\ganttbar{task 7}{16}{18} \\
+%\ganttbar[progress=0]{task 8}{21}{24}
+%
+%%relations 
+%\ganttlink{elem0}{elem1} 
+%\ganttlink{elem0}{elem3} 
+%\ganttlink{elem1}{elem2} 
+%\ganttlink{elem3}{elem4} 
+%\ganttlink{elem1}{elem5} 
+%\ganttlink{elem3}{elem5} 
+%\ganttlink{elem2}{elem6} 
+%\ganttlink{elem3}{elem6} 
+%\ganttlink{elem5}{elem7} 
+%\end{ganttchart}
+%\end{center}
+%\caption{Gantt Chart}
+%\end{figure}
+
+\begin{figure}[h!]
+\begin{ganttchart}[hgrid=true]{1}{12}
+\gantttitle{2011}{12} \\
+\gantttitlelist{1,...,12}{1} \\
+\ganttgroup{Group 1}{1}{7} \\
+\ganttbar{Task 1}{1}{2} \\
+\ganttlinkedbar{Task 2}{3}{7} \ganttnewline
+\ganttmilestone{Milestone}{7} \ganttnewline
+\ganttbar{Final Task}{8}{12}
+\ganttlink{elem2}{elem3}
+\ganttlink{elem3}{elem4}
+\end{ganttchart}
+\end{figure}
