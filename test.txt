@@ -1,0 +1,34 @@
+\begin{titlepage}
+\begin{center}
+\begin{figure}
+\centering
+\includegraphics[scale=0.2]{Figures/logo}
+\end{figure}
+{\scshape\LARGE \univname\par}\vspace{1cm} % University name
+\textsc{\Large Honours Thesis}\\[0.4cm] % Thesis type
+
+\HRule \\[0.3cm] % Horizontal line
+{\huge \bfseries \ttitle\par}\vspace{0.3cm} % Thesis title
+\HRule \\[1cm] % Horizontal line
+ 
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+\href{mailto:affaanm94@gmail.com}{\authorname} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+\href{mailto:Hennie.Kruger@nwu.ac.za}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\end{flushright}
+\end{minipage}\\[1cm]
+\large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.2cm] % University requirement text
+\textit{in the}\\[0.1cm]
+\deptname\\[0.5cm] % Research group name and department name
+\large \textit{for the}\\
+\large \textit{ITRI671 module}\\
+{\large \today}\\[1cm] % Date
+%\includegraphics{Figures/logo} % University/department logo - uncomment to place it
+\end{center}
+\end{titlepage}
