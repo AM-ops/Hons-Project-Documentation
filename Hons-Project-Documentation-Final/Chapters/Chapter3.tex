@@ -131,26 +131,21 @@ Once the coordinates were acquired the Folium interactive map was created of the
 The file can be downloaded and thereafter viewed interactively in a browser.
 
 The Land Usage for 2010 and 2020 can be seen in Figures \ref{fig:mel2010} and \ref{fig:mel2020}
-\begin{landscape}
+
+\begin{figure}[!ht]
 \centering
-\begin{figure}[!h]
 %\includegraphics[width=20cm,height=15cm,keepaspectratio]{Figures/Chapter3/Folium}
-\includegraphics[scale=0.6]{Figures/Chapter3/Folium}
+\includegraphics[scale=0.35,angle=90]{Figures/Chapter3/Folium}
 \caption{Interactive map of the \textit{Melusi} area}
 \label{fig:fol}
 \end{figure}
-
 \pagebreak
-
-%\hspace*{5cm}
-%\vspace*{2cm}
+\begin{figure}[!ht]
 \centering
-\begin{figure}[!h]
-\includegraphics[scale=0.6]{Figures/Chapter3/Folium2}
+\includegraphics[scale=0.6,angle=90]{Figures/Chapter3/Folium2}
 \caption{Another Interactive map of the \textit{Melusi} area}
 \label{fig:fol2}
 \end{figure}
-\end{landscape}
 After the above \textit{Melusi} area datasets were explored the next two variables needed to be explored. These were the road networks and the population datasets.
 
 The road networks dataset as was mentioned in Section \ref{sec:open} is in the \texttt{.SHP} format, therefore once again the Geopandas \texttt{read\_file} method was employed to read the data. However the population dataset was in the \texttt{.TIF} format therefore another library Rioxarray had to be utilised.\footnote{\url{https://corteva.github.io/rioxarray/stable/rioxarray.html}} The method from this library is to read the file is\texttt{open\_rasterio}.
@@ -190,8 +185,8 @@ The CRS for all the datasets was \textit{EPSG 4326}, therefore the process of sa
 \subsection{Image Processing with OpenCV}
 After the images above were saved and analysed the following final dimensions were achieved, thanks to the high DPI;
 \begin{itemize}
-\item Width: 7200 pixels
-\item Height: 4800 pixels
+\item Width: 7,200 pixels
+\item Height: 4,800 pixels
 \end{itemize}
 To assist in the CA modelling (discussed further down) and to simplify the process, one of the approached that can be taken is to scale the images (also known as resizing). Another approach is to grayscale the images. Both of these approaches were applied. The rationale behind using these approaches is as follows; A trade off can be made between computational time in modelling with the data loss in an image.\cite{impact} Additionally, the norm in Image Processing Modelling is to utilise Convolutional Neural Networks, this will not be the approach taken in this research.\cite{cnn}
 
@@ -204,11 +199,22 @@ With regards to grayscaling, and fields such as image recognition the method or 
 \end{itemize}
 The grayscale operation was carried out using the Python version of the OpenCV library\footnote{\url{https://docs.opencv.org/4.x/}}. The conversion from a RGB image to grayscale is done with the \texttt{cvtColor} method\footnote{\url{https://docs.opencv.org/3.4.15/de/d25/imgproc_color_conversions.html}}
 
-Additionally
+Additionally, the process of scaling the images utilised the \texttt{resize} method\footnote{\url{https://docs.opencv.org/3.4.15/da/d54/group\_\_imgproc\_\_transform.html\#ga47a974309e9102f5f08231edc7e7529d}} which was called. The scale factor was $\frac{1}{3}$. This scale factor was chosen as too much data loss can not occur. Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea.com/}} was employed to trim some of the edges of the images. The resulting dimensions of the images were as follows:
+\begin{itemize}
+\item Width: 2,160 pixels
+\item Height: 830 pixels
+\end{itemize}
 sfsdfs \cite{imgp} Image processing
 
 
 Adjacency of any two squares can be defined as:\cite{aima}
 \begin{center}
 $\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$\\\textit{if and only if}\\$(x = a \land (y = b - 1 \lor y = b + 1)) \lor (y = b \land (x = a - 1 \lor x = a + 1))$
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/gridlayers}
+\caption{Numpy Arrays visualised}
+\label{fig:roadgraph}
+\end{figure}
 \end{center}
