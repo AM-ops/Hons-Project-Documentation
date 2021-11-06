@@ -185,5 +185,30 @@ The next process involved exporting or saving high quality images of all the fig
 
 The pixel density (known as Dots Per Inch or DPI)\cite{dpi} was set to 1,200 and the Matplotlib library's \texttt{pyplot.savefig}\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html}} method was called to save all the images. Additionally, the axes were set to be turned off\footnote{\url{https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.set_axis_off.html}} and, the autoscale\footnote{\url{https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.autoscale.html}} for figures was set to \texttt{False}.\\\\
 Before the images were saved a few key aspects had to be verified. The first was making sure the Coordinate Reference System (CRS) was the same for all the datasets involved. The approach for \texttt{GeoDataFrames} is to call the \texttt{crs} property\footnote{\url{https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.crs.html}} and for the \texttt{DataArrays} the \texttt{rio.crs} accessor\footnote{\url{https://corteva.github.io/rioxarray/stable/getting_started/crs_management.html}} can be accessed.
-\subsection{Image Processing with OpenCV} 
-sfsdfs \cite{imgp} epsg 4326
+
+The CRS for all the datasets was \textit{EPSG 4326}, therefore the process of saving the images was done immediately without the need for the CRS for any dataset to be changed.
+\subsection{Image Processing with OpenCV}
+After the images above were saved and analysed the following final dimensions were achieved, thanks to the high DPI;
+\begin{itemize}
+\item Width: 7200 pixels
+\item Height: 4800 pixels
+\end{itemize}
+To assist in the CA modelling (discussed further down) and to simplify the process, one of the approached that can be taken is to scale the images (also known as resizing). Another approach is to grayscale the images. Both of these approaches were applied. The rationale behind using these approaches is as follows; A trade off can be made between computational time in modelling with the data loss in an image.\cite{impact} Additionally, the norm in Image Processing Modelling is to utilise Convolutional Neural Networks, this will not be the approach taken in this research.\cite{cnn}
+
+With regards to grayscaling, and fields such as image recognition the method or type of algorithms utilised to grayscale color images does impact performance.\cite{gray} However in this research those finer details are not in the project scope, hence a basic grayscale operation was performed for all of the following images:
+\begin{itemize}
+\item Land Usage of the \textit{Melusi} area in 2010.
+\item Land Usage of the \textit{Melusi} area in 2020.
+\item Road networks of the \textit{Melusi} area in 2019.
+\item Population Density of the \textit{Melusi} area in 2019.
+\end{itemize}
+The grayscale operation was carried out using the Python version of the OpenCV library\footnote{\url{https://docs.opencv.org/4.x/}}. The conversion from a RGB image to grayscale is done with the \texttt{cvtColor} method\footnote{\url{https://docs.opencv.org/3.4.15/de/d25/imgproc_color_conversions.html}}
+
+Additionally
+sfsdfs \cite{imgp} Image processing
+
+
+Adjacency of any two squares can be defined as:\cite{aima}
+\begin{center}
+$\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$\\\textit{if and only if}\\$(x = a \land (y = b - 1 \lor y = b + 1)) \lor (y = b \land (x = a - 1 \lor x = a + 1))$
+\end{center}
