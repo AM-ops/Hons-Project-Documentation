@@ -217,21 +217,9 @@ These resulting dimensions were perfect for the next process which involved crea
 To begin the process of creating the CA model, the first step involved reading the final images created from the steps in Section \ref{sec:imgproc}. This once again required the use of OpenCV. The function employed is the \texttt{imread} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#ga288b8b3da0892bd651fce07b3bbd3a56}}.
 sfsdfs \cite{imgp} Image processing
 
-
-From Set Theory using a 2-Dimensional grid or array the Adjacency of any two "squares" or "cells" in the grid can be defined as:\cite{aima}
-\begin{center}
-$\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$\\\textit{if and only if}\\$(x = a \land (y = b - 1 \lor y = b + 1)) \lor (y = b \land (x = a - 1 \lor x = a + 1))$
-\end{center}
-The figure below demonstrates this rule. Given a set of [a, b] coordinates  which can be defined
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.5]{Figures/Chapter3/adjacent}
-\caption{Numpy Arrays visualised}
-\label{fig:ruleadj}
-\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/gridlayers}
 \caption{Numpy Arrays visualised}
-\label{fig:roadgraph}
+\label{fig:gridlayers}
 \end{figure}

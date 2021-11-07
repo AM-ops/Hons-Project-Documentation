@@ -75,7 +75,36 @@ In a seminal paper by Stephen Wolfram, four classes of CA were proposed accordin
 \item Class 4 - Capable of universal computations i.e. can exhibit complex behaviour. 
 \end{itemize}
 Due to the nature of the rules of \textsl{Life} certain patterns emerge. This is thanks to the cycles of repeated stated which evolve over certain number of generations. These patterns include still-lifes, period two (or \textsl{blinkers}), gliders, oscillators, glider guns, and puffer trains.\citep{adamatzky2010game}
-\\\\
+
+From Set Theory using a 2-Dimensional grid or an array the Adjacency of any two "squares" or "cells" in the grid can be defined as:\cite{aima}
+\begin{center}
+$\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$\\\textit{if and only if}\\$(x = a \land (y = b - 1 \lor y = b + 1)) \lor (y = b \land (x = a - 1 \lor x = a + 1))$
+\end{center}
+Given a set of $[a, b]$ coordinates which can be defined in a 2-Dimensional grid or Cartesian plane with a corresponding to $x$ and $b$ corresponding to $y$. The $[a, b]$ values can then be changed according to rule specified. The Figure \ref{fig:ruleadj} below demonstrates this rule in a diagrammatical manner.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Figures/Chapter2/adjacent}
+\caption{Rule for Adjacency}
+\label{fig:ruleadj}
+\end{figure}
+\begin{center}
+Source: Own Creation (2021)
+\end{center}
+This configuration for the adjacency rule is known as the \textit{Von Neumann neighbourhood}\cite{ca}. The above rule from Set Theory can be expanded to include diagonal cells or blocks. The rule can be expanded as follows;
+\begin{center}
+$\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$ \\ \textit{if and only if}\\$(x = a \land (y = b - 1 \lor y = b + 1)) \lor (y = b \land (x = a - 1 \lor x = a + 1))$\\ $\lor (x = a - 1 \land (y = b - 1 \lor y = b +1))$\\ $\lor (x = a + 1 \land (y = b - 1 \lor y = b + 1))$
+\end{center}
+This configuration for the adjacency rule is known as the \textit{Moore neighbourhood}\cite{ca}. The Figure \ref{fig:ruleadj2} below demonstrates this rule in a diagrammatical manner once again.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Figures/Chapter2/adjacent2}
+\caption{Rule for Adjacency Revised}
+\label{fig:ruleadj2}
+\end{figure}
+\begin{center}
+Source: Own Creation (2021)
+\end{center}
+
 The applications of CA and, or \textsl{Life} have sparked a number of research papers in fields such as physics, music, complexity, and computation. \\
 Examples in physics include, interaction between a complex system and electromagnetic radiation \citep{conti}, an implementation of \textsl{Life} with quantum features.\citep{quantum}\\
 Implementations in music include the development of CAMUS (\textbf{C}ellular \textbf{A}utomata \textbf{Mus}ic).\citep{music}\\

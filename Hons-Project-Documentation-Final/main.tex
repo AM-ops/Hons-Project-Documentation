@@ -100,7 +100,6 @@ headsepline, % Uncomment to get a line under the header
 \hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
 \hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
 }
-\usepackage{pdflscape}
 \begin{document}
 
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
@@ -113,11 +112,11 @@ headsepline, % Uncomment to get a line under the header
 
 \begin{titlepage}
 \begin{center}
-%\begin{figure}
-%\centering
-%\includegraphics[scale=0.3]{Figures/logo}
-%\end{figure}
-\vspace*{.01\textheight}
+\begin{figure}
+\centering
+\includegraphics[scale=0.3,trim=0 0 0 3cm]{Figures/logo}
+\end{figure}
+%\vspace*{.01\textheight}
 {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
 \textsc{\Large Honours Thesis}\\[0.5cm] % Thesis type
 
@@ -140,13 +139,12 @@ headsepline, % Uncomment to get a line under the header
  
 %\vfill
 
-\large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+\large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename} % University requirement text
 \textit{in the}\\[0.4cm]
 \deptname\\[1cm] % Research group name and department name
-\large \textit{for the}\\
+\large \textit{for the}
 \large \textit{ITRI671 module}\\
 %\vfill
-
 {\large \today}\\[4cm] % Date
 %\includegraphics{Figures/logo} % University/department logo - uncomment to place it
  
