@@ -148,7 +148,7 @@ The Land Usage for 2010 and 2020 can be seen in Figures \ref{fig:mel2010} and \r
 \end{figure}
 After the above \textit{Melusi} area datasets were explored the next two variables needed to be explored. These were the road networks and the population datasets.
 
-The road networks dataset as was mentioned in Section \ref{sec:open} is in the \texttt{.SHP} format, therefore once again the Geopandas \texttt{read\_file} method was employed to read the data. However the population dataset was in the \texttt{.TIF} format therefore another library Rioxarray had to be utilised.\footnote{\url{https://corteva.github.io/rioxarray/stable/rioxarray.html}} The method from this library is to read the file is\texttt{open\_rasterio}.
+The road networks dataset as was mentioned in Section \ref{sec:open} is in the \texttt{.SHP} format, therefore once again the Geopandas \texttt{read\_file} method was employed to read the data. However the population dataset was in the \texttt{.TIF} format therefore another library Rioxarray had to be utilised.\footnote{\url{https://corteva.github.io/rioxarray/stable/rioxarray.html}} The method from this library is to read the file is \texttt{open\_rasterio}.
 
 Data that is loaded using Geopandas is stored in \texttt{GeoDataFrames} whereas the data loaded using Rioxarray is stored in \texttt{DataArrays}. Each of these data structures have different methods and properties that allow for the manipulation of the data. This is demonstrated below.
 
@@ -183,6 +183,7 @@ Before the images were saved a few key aspects had to be verified. The first was
 
 The CRS for all the datasets was \textit{EPSG 4326}, therefore the process of saving the images was done immediately without the need for the CRS for any dataset to be changed.
 \subsection{Image Processing with OpenCV}
+\label{sec:imgproc}
 After the images above were saved and analysed the following final dimensions were achieved, thanks to the high DPI;
 \begin{itemize}
 \item Width: 7,200 pixels
@@ -197,24 +198,40 @@ With regards to grayscaling, and fields such as image recognition the method or 
 \item Road networks of the \textit{Melusi} area in 2019.
 \item Population Density of the \textit{Melusi} area in 2019.
 \end{itemize}
+
 The grayscale operation was carried out using the Python version of the OpenCV library\footnote{\url{https://docs.opencv.org/4.x/}}. The conversion from a RGB image to grayscale is done with the \texttt{cvtColor} method\footnote{\url{https://docs.opencv.org/3.4.15/de/d25/imgproc_color_conversions.html}}
 
-Additionally, the process of scaling the images utilised the \texttt{resize} method\footnote{\url{https://docs.opencv.org/3.4.15/da/d54/group\_\_imgproc\_\_transform.html\#ga47a974309e9102f5f08231edc7e7529d}} which was called. The scale factor was $\frac{1}{3}$. This scale factor was chosen as too much data loss can not occur. Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea.com/}} was employed to trim some of the edges of the images. The resulting dimensions of the images were as follows:
+The grayscale formula from OpenCV's Documentation is as follows:
+\begin{center}
+$\text{RGB[A] to Gray:} \quad Y \leftarrow 0.299 \cdot R + 0.587 \cdot G + 0.114 \cdot B$
+\end{center}
+Additionally, the process of scaling the images utilised the \texttt{resize} method\footnote{\url{https://docs.opencv.org/3.4.15/da/d54/group\_\_imgproc\_\_transform.html\#ga47a974309e9102f5f08231edc7e7529d}} which was called. The scale factor was $\frac{1}{3}$. This scale factor was chosen to prevent excess data. At this stage the Data Preprocessing is complete and the only aspect remaining is to to save the images after being processed. For this the \texttt{imwrite} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#gabbc7ef1aa2edfaa87772f1202d67e0ce}} from OpenCV was called for each of the four final images.
+
+Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea.com/}} was employed to trim some of the edges of the images. The resulting dimensions of the images were as follows:
 \begin{itemize}
 \item Width: 2,160 pixels
 \item Height: 830 pixels
 \end{itemize}
+These resulting dimensions were perfect for the next process which involved creating the CA model.
+\subsection{Cellular Automata Modelling}
+To begin the process of creating the CA model, the first step involved reading the final images created from the steps in Section \ref{sec:imgproc}. This once again required the use of OpenCV. The function employed is the \texttt{imread} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#ga288b8b3da0892bd651fce07b3bbd3a56}}.
 sfsdfs \cite{imgp} Image processing
 
 
-Adjacency of any two squares can be defined as:\cite{aima}
+From Set Theory using a 2-Dimensional grid or array the Adjacency of any two "squares" or "cells" in the grid can be defined as:\cite{aima}
 \begin{center}
 $\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$\\\textit{if and only if}\\$(x = a \land (y = b - 1 \lor y = b + 1)) \lor (y = b \land (x = a - 1 \lor x = a + 1))$
-
+\end{center}
+The figure below demonstrates this rule. Given a set of [a, b] coordinates  which can be defined
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Figures/Chapter3/adjacent}
+\caption{Numpy Arrays visualised}
+\label{fig:ruleadj}
+\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/gridlayers}
 \caption{Numpy Arrays visualised}
 \label{fig:roadgraph}
 \end{figure}
-\end{center}
