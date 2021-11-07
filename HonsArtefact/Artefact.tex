@@ -1,0 +1,1540 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Artefact}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+\pagenumbering{gobble}
+\begin{document}
+    
+    %\maketitle
+    \vspace*{150pt}
+    
+    
+
+    
+    Installing all the Libraries and Packages needed
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{o}{!}pip install geopandas
+\PY{o}{!}pip install rioxarray
+\PY{o}{!}pip install folium
+\PY{o}{!}pip install opencv\PYZhy{}contrib\PYZhy{}python
+\end{Verbatim}
+\end{tcolorbox}
+
+    Importing all the Libraries installed above
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{geopandas} \PY{k}{as} \PY{n+nn}{gpd}
+\PY{k+kn}{import} \PY{n+nn}{rioxarray}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{from} \PY{n+nn}{shapely}\PY{n+nn}{.}\PY{n+nn}{geometry} \PY{k+kn}{import} \PY{n}{Point}\PY{p}{,} \PY{n}{Polygon}
+\PY{k+kn}{import} \PY{n+nn}{folium}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k+kn}{import} \PY{n}{cohen\PYZus{}kappa\PYZus{}score}
+\PY{k+kn}{from} \PY{n+nn}{google}\PY{n+nn}{.}\PY{n+nn}{colab} \PY{k+kn}{import} \PY{n}{drive}
+\PY{k+kn}{import} \PY{n+nn}{cv2}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Mounting my Google Drive where Data was uploaded to
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{drive}\PY{o}{.}\PY{n}{mount}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mounted at /content/drive/
+    \end{Verbatim}
+
+    Read the \emph{Melusi} area file to get the Boundaries
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsProj\PYZhy{}Data/GTI\PYZus{}Data\PYZus{}Delivery20210902/SHP/Melusi\PYZus{}Area.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<matplotlib.axes.\_subplots.AxesSubplot at 0x7f33e9c1fb10>
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area}\PY{o}{.}\PY{n}{total\PYZus{}bounds}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+array([ 28.09795264, -25.72762111,  28.13242493, -25.71553163])
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{xmin}\PY{p}{,} \PY{n}{ymin}\PY{p}{,} \PY{n}{xmax}\PY{p}{,} \PY{n}{ymax} \PY{o}{=} \PY{n}{melusi\PYZus{}area}\PY{o}{.}\PY{n}{total\PYZus{}bounds}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Create first interactive map of the \emph{Melusi} Area
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{map1} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{25.72}\PY{p}{,}\PY{l+m+mf}{28.11}\PY{p}{]}\PY{p}{,} \PY{n}{tiles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OpenStreetMap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Add the \emph{Melusi} Area to the first map
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{r} \PY{o+ow}{in} \PY{n}{melusi\PYZus{}area}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{n}{sim\PYZus{}geo} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoSeries}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{simplify}\PY{p}{(}\PY{n}{tolerance}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+    \PY{n}{geo\PYZus{}j} \PY{o}{=} \PY{n}{sim\PYZus{}geo}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{p}{)}
+    \PY{n}{geo\PYZus{}j} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{GeoJson}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{geo\PYZus{}j}\PY{p}{,}
+                           \PY{n}{style\PYZus{}function}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fillColor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+    \PY{n}{geo\PYZus{}j}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map1}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Display the first map by asking for the object representation
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{map1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Save the first interactive map
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{map1}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZus{}area.html}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Create second interactive map of the \emph{Melusi} Area
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{map2} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{25.72}\PY{p}{,}\PY{l+m+mf}{28.11}\PY{p}{]}\PY{p}{,} \PY{n}{tiles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Carto DB Positron}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Add the \emph{Melusi} Area to the second map
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{r} \PY{o+ow}{in} \PY{n}{melusi\PYZus{}area}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{n}{sim\PYZus{}geo} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoSeries}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{simplify}\PY{p}{(}\PY{n}{tolerance}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+    \PY{n}{geo\PYZus{}j} \PY{o}{=} \PY{n}{sim\PYZus{}geo}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{p}{)}
+    \PY{n}{geo\PYZus{}j} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{GeoJson}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{geo\PYZus{}j}\PY{p}{,}
+                           \PY{n}{style\PYZus{}function}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fillColor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+    \PY{n}{geo\PYZus{}j}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map2}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Display the second map by asking for the object representation
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{map2}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Save the second interactive map
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{22}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{map2}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZus{}area2.html}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Read the other data files
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{23}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area\PYZus{}2010} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsProj\PYZhy{}Data/GTI\PYZus{}Data\PYZus{}Delivery20210902/SHP/Melusi\PYZus{}Building\PYZus{}Based\PYZus{}Land\PYZus{}Use\PYZus{}Points\PYZus{}2010.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{melusi\PYZus{}area\PYZus{}2020} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsProj\PYZhy{}Data/GTI\PYZus{}Data\PYZus{}Delivery20210902/SHP/Melusi\PYZus{}Building\PYZus{}Based\PYZus{}Land\PYZus{}Use\PYZus{}Points\PYZus{}2020.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{roads} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsProj\PYZhy{}Data/roads\PYZus{}lines\PYZus{}shp/hotosm\PYZus{}zaf\PYZus{}roads\PYZus{}lines.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{population} \PY{o}{=} \PY{n}{rioxarray}\PY{o}{.}\PY{n}{open\PYZus{}rasterio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/content/drive/MyDrive/HonsProj\PYZhy{}Data/population\PYZus{}zaf\PYZus{}2019\PYZhy{}07\PYZhy{}01\PYZus{}geotiff/population\PYZus{}zaf\PYZus{}2019\PYZhy{}07\PYZhy{}01.tif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Limit the Roads and Population data to just the \emph{Melusi} Area
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{24}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{roads} \PY{o}{=} \PY{n}{roads}\PY{o}{.}\PY{n}{cx}\PY{p}{[}\PY{n}{xmin}\PY{p}{:}\PY{n}{xmax}\PY{p}{,} \PY{n}{ymin}\PY{p}{:}\PY{n}{ymax}\PY{p}{]}
+\PY{n}{population} \PY{o}{=} \PY{n}{population}\PY{o}{.}\PY{n}{rio}\PY{o}{.}\PY{n}{clip\PYZus{}box}\PY{p}{(}\PY{n}{minx}\PY{o}{=}\PY{n}{xmin}\PY{p}{,} \PY{n}{miny}\PY{o}{=}\PY{n}{ymin}\PY{p}{,} \PY{n}{maxx}\PY{o}{=}\PY{n}{xmax}\PY{p}{,} \PY{n}{maxy}\PY{o}{=}\PY{n}{ymax}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Plot the new data files
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{27}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{melusi\PYZus{}area\PYZus{}2010}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale\PYZus{}view}\PY{p}{(}\PY{n}{scalex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{scaley}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale}\PY{p}{(}\PY{n}{enable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{28}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{melusi\PYZus{}area\PYZus{}2020}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale\PYZus{}view}\PY{p}{(}\PY{n}{scalex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{scaley}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale}\PY{p}{(}\PY{n}{enable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{29}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{roads}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale\PYZus{}view}\PY{p}{(}\PY{n}{scalex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{scaley}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale}\PY{p}{(}\PY{n}{enable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{32}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{population}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Get the Coordinate Reference System for all the data
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{33}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area}\PY{o}{.}\PY{n}{crs}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{33}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<Geographic 2D CRS: EPSG:4326>
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{34}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area\PYZus{}2010}\PY{o}{.}\PY{n}{crs}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{34}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<Geographic 2D CRS: EPSG:4326>
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{36}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area\PYZus{}2020}\PY{o}{.}\PY{n}{crs}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{36}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<Geographic 2D CRS: EPSG:4326>
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{type}\PY{p}{(}\PY{n}{population}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+numpy.ndarray
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi\PYZus{}area}\PY{o}{.}\PY{n}{crs}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<Geographic 2D CRS: EPSG:4326>
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{38}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CRS: }\PY{l+s+si}{\PYZob{}}\PY{n}{population}\PY{o}{.}\PY{n}{rio}\PY{o}{.}\PY{n}{crs}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bounds: }\PY{l+s+si}{\PYZob{}}\PY{n}{population}\PY{o}{.}\PY{n}{rio}\PY{o}{.}\PY{n}{bounds}\PY{p}{(}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Width: }\PY{l+s+si}{\PYZob{}}\PY{n}{population}\PY{o}{.}\PY{n}{rio}\PY{o}{.}\PY{n}{width}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Height: }\PY{l+s+si}{\PYZob{}}\PY{n}{population}\PY{o}{.}\PY{n}{rio}\PY{o}{.}\PY{n}{height}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CRS: EPSG:4326
+Bounds: (28.09791666667597, -25.727638888891768, 28.132638888898217,
+-25.71541666666954)
+Width: 125
+Height: 44
+    \end{Verbatim}
+
+    Save the Plotted Images without the Axes
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{51}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{melusi\PYZus{}area\PYZus{}2010}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale\PYZus{}view}\PY{p}{(}\PY{n}{scalex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{scaley}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale}\PY{p}{(}\PY{n}{enable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{melusi\PYZhy{}area2010\PYZhy{}noaxis.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{1200}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{52}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{melusi\PYZus{}area\PYZus{}2020}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale\PYZus{}view}\PY{p}{(}\PY{n}{scalex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{scaley}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale}\PY{p}{(}\PY{n}{enable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{melusi\PYZhy{}area2020\PYZhy{}noaxis.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{1200}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{53}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{roads}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{)}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale\PYZus{}view}\PY{p}{(}\PY{n}{scalex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{scaley}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{autoscale}\PY{p}{(}\PY{n}{enable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{roads\PYZhy{}noaxis.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{1200}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{43}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ax} \PY{o}{=} \PY{n}{population}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{population\PYZhy{}noaxis.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{1200}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Grayscale Images that were saved and resave
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{54}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZhy{}area2010\PYZhy{}noaxis.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{melusi2010\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZhy{}area2010\PYZus{}gray.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{melusi2010\PYZus{}gray}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{54}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{55}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZhy{}area2020\PYZhy{}noaxis.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{melusi2020\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZhy{}area2020\PYZus{}gray.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{melusi2020\PYZus{}gray}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{55}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{56}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roads\PYZhy{}noaxis.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{roads2019gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roads2019\PYZus{}gray.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{roads2019gray}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{56}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Resize and scale new grayscale images
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{57}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{scale\PYZus{}percent} \PY{o}{=} \PY{l+m+mf}{33.333333333} \PY{c+c1}{\PYZsh{} percent of original size}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{58}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{roads\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roads2019\PYZus{}gray.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{roads\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{roads\PYZus{}gray}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{width} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{roads\PYZus{}gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{scale\PYZus{}percent} \PY{o}{/} \PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{height} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{roads\PYZus{}gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{scale\PYZus{}percent} \PY{o}{/} \PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{dim} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+\PY{n}{roads\PYZus{}gray\PYZus{}resized} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{roads\PYZus{}gray}\PY{p}{,} \PY{n}{dim}\PY{p}{,} \PY{n}{interpolation} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{INTER\PYZus{}AREA}\PY{p}{)}
+\PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roads\PYZus{}gray\PYZus{}resized.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{roads\PYZus{}gray\PYZus{}resized}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{58}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{59}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi2010\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZhy{}area2010\PYZus{}gray.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{melusi2010\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{melusi2010\PYZus{}gray}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{width} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{melusi2010\PYZus{}gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{scale\PYZus{}percent} \PY{o}{/} \PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{height} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{melusi2010\PYZus{}gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{scale\PYZus{}percent} \PY{o}{/} \PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{dim} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+\PY{n}{melusi2010\PYZus{}gray\PYZus{}resized} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{melusi2010\PYZus{}gray}\PY{p}{,} \PY{n}{dim}\PY{p}{,} \PY{n}{interpolation} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{INTER\PYZus{}AREA}\PY{p}{)}
+\PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi2010\PYZus{}gray\PYZus{}resized.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{melusi2010\PYZus{}gray\PYZus{}resized}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{59}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{60}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi2020\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi\PYZhy{}area2010\PYZus{}gray.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{melusi2020\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{melusi2020\PYZus{}gray}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{width} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{melusi2020\PYZus{}gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{scale\PYZus{}percent} \PY{o}{/} \PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{height} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{melusi2020\PYZus{}gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{scale\PYZus{}percent} \PY{o}{/} \PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{dim} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+\PY{n}{melusi2020\PYZus{}gray\PYZus{}resized} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{melusi2020\PYZus{}gray}\PY{p}{,} \PY{n}{dim}\PY{p}{,} \PY{n}{interpolation} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{INTER\PYZus{}AREA}\PY{p}{)}
+\PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{melusi2020\PYZus{}gray\PYZus{}resized.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{melusi2020\PYZus{}gray\PYZus{}resized}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{60}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Replace colors in roads with just black and white
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{61}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{thresholdReplaceRoads}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+  \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{230}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{255}
+  \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{230} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{0}
+  \PY{k}{else}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{62}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{vectorizeRoadsFunction} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{thresholdReplaceRoads}\PY{p}{)}
+\PY{n}{roads\PYZus{}gray\PYZus{}resized} \PY{o}{=} \PY{n}{vectorizeRoadsFunction}\PY{p}{(}\PY{n}{roads\PYZus{}gray\PYZus{}resized}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{64}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{roads\PYZus{}gray\PYZus{}resized}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{64}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+array([  0, 255])
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Replace colours in Grayscale Population Image with just 5 colours
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{66}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{thresholdReplacePopulation}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+  \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{220} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{195}\PY{p}{:} \PY{c+c1}{\PYZsh{} Yellows in original picture}
+    \PY{k}{return} \PY{l+m+mi}{215}
+  \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{25} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{35}\PY{p}{:} \PY{c+c1}{\PYZsh{} Purples in original picture}
+    \PY{k}{return} \PY{l+m+mi}{30}
+  \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{80} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{115}\PY{p}{:} \PY{c+c1}{\PYZsh{} Blues in original picture}
+    \PY{k}{return} \PY{l+m+mi}{99}
+  \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{130} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{150}\PY{p}{:} \PY{c+c1}{\PYZsh{} Greens in original picture}
+    \PY{k}{return} \PY{l+m+mi}{146}
+  \PY{k}{else}\PY{p}{:} \PY{c+c1}{\PYZsh{} To replace background colors}
+    \PY{k}{return} \PY{l+m+mi}{255}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{68}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{population\PYZus{}gray\PYZus{}resized} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsArtifact/Pictures/2019population.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{population\PYZus{}gray\PYZus{}resized} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{population\PYZus{}gray\PYZus{}resized}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{vectorizePopulationFunction} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{thresholdReplacePopulation}\PY{p}{)}
+\PY{n}{population\PYZus{}gray\PYZus{}resized} \PY{o}{=} \PY{n}{vectorizePopulationFunction}\PY{p}{(}\PY{n}{population\PYZus{}gray\PYZus{}resized}\PY{p}{)}
+\PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population\PYZus{}new.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{population\PYZus{}gray\PYZus{}resized}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{68}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Methods to be utilised for Cellular Automata Modelling
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{70}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Replacing the grayscale colours with Population Density}
+\PY{k}{def} \PY{n+nf}{replaceWithPopulationDensity}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+  \PY{k}{if} \PY{n}{x} \PY{o}{==} \PY{l+m+mi}{30}\PY{p}{:} \PY{c+c1}{\PYZsh{} Purples in original picture}
+    \PY{k}{return} \PY{l+m+mf}{0.5483527804562259}
+  \PY{k}{elif} \PY{n}{x} \PY{o}{==} \PY{l+m+mi}{99}\PY{p}{:} \PY{c+c1}{\PYZsh{} Blues in original picture}
+    \PY{k}{return} \PY{l+m+mf}{2.5802248275941975}
+  \PY{k}{elif} \PY{n}{x} \PY{o}{==} \PY{l+m+mi}{146}\PY{p}{:} \PY{c+c1}{\PYZsh{} Greens in original picture}
+    \PY{k}{return} \PY{l+m+mf}{4.0719211311237515}
+  \PY{k}{elif} \PY{n}{x} \PY{o}{==} \PY{l+m+mi}{215}\PY{p}{:} \PY{c+c1}{\PYZsh{} Yellows in original picture}
+    \PY{k}{return} \PY{l+m+mf}{5.236094447939968}
+  \PY{k}{else}\PY{p}{:} \PY{c+c1}{\PYZsh{}To replace background colors}
+    \PY{k}{return} \PY{l+m+mf}{0.1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{71}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{vectorizePopulationFunction} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{replaceWithPopulationDensity}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{72}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} If Road is present in pixel replace with 1}
+\PY{k}{def} \PY{n+nf}{replaceRoadsForCalc}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+  \PY{k}{if} \PY{n}{x} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{0}
+  \PY{k}{else}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{73}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{vectorizeRoadsFunction} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{replaceRoadsForCalc}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{75}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Replace Black and White pixels with 1s and 0s for Calculations}
+\PY{k}{def} \PY{n+nf}{replaceBWForCalculations}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+  \PY{k}{if} \PY{n}{x} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{0}
+  \PY{k}{else}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{76}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{vectorizeBWFunction} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{replaceBWForCalculations}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Read and Grayscale Final Images for CA Modelling
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{77}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi2010} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsArtifact/Pictures/melusi2010gray01s\PYZus{}new.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{melusi2020} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsArtifact/Pictures/melusi2020gray01s\PYZus{}new.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{population} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsArtifact/Pictures/population2019gray01s\PYZus{}new.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{roads} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/HonsArtifact/Pictures/roads\PYZus{}gray\PYZus{}01s\PYZus{}new.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{78}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi2010} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{melusi2010}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{melusi2020} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{melusi2020}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{population} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{population}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\PY{n}{roads} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{roads}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Vectorize and replace Roads and Population data for Calculations
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{79}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{roads} \PY{o}{=} \PY{n}{vectorizeRoadsFunction}\PY{p}{(}\PY{n}{roads}\PY{p}{)}
+\PY{n}{population} \PY{o}{=} \PY{n}{vectorizePopulationFunction}\PY{p}{(}\PY{n}{population}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Create copies of original data (so original remains unchanged)
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{80}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melusi2010\PYZus{}copy} \PY{o}{=} \PY{n}{melusi2010}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{n}{melusi2020\PYZus{}copy} \PY{o}{=} \PY{n}{melusi2020}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{n}{population\PYZus{}copy} \PY{o}{=} \PY{n}{population}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{n}{roads\PYZus{}copy} \PY{o}{=} \PY{n}{roads}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Calculate Cumulative Sum Averages for Population and Roads
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{81}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Every 10 by 10 pixel block is calculated}
+\PY{n}{row} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{column} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{step} \PY{o}{=} \PY{l+m+mi}{10} 
+\PY{n}{doubleStep} \PY{o}{=} \PY{l+m+mi}{20}
+\PY{n}{maxHeight} \PY{o}{=} \PY{l+m+mi}{830}
+\PY{n}{maxWidth} \PY{o}{=} \PY{l+m+mi}{2160}
+
+\PY{n}{firstRow} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{secondRow} \PY{o}{=} \PY{l+m+mi}{10}
+\PY{n}{secondLastRow} \PY{o}{=} \PY{l+m+mi}{810}
+\PY{n}{lastRow} \PY{o}{=} \PY{l+m+mi}{820}
+
+
+\PY{n}{firstColumn} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{secondColumn} \PY{o}{=} \PY{l+m+mi}{10}
+\PY{n}{secondLastColumn} \PY{o}{=} \PY{l+m+mi}{2140}
+\PY{n}{lastColumn} \PY{o}{=} \PY{l+m+mi}{2150}
+
+\PY{n}{cumsumPopulationList} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{n}{cumsumRoadList} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+
+\PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{melusi2010\PYZus{}copy}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+    \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+
+      \PY{k}{if}\PY{p}{(}\PY{n}{row} \PY{o}{\PYZlt{}} \PY{n}{maxHeight} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}} \PY{n}{maxWidth}\PY{p}{)}\PY{p}{:}
+        \PY{n}{populationBlock} \PY{o}{=} \PY{n}{population\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{,}\PY{n}{column}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{]}
+        \PY{n}{roadsBlock} \PY{o}{=} \PY{n}{roads\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{,}\PY{n}{column}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{]}
+        \PY{n}{roadsCumulativeCalc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{roadsBlock}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+        \PY{n}{populationCumulativeCalc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{populationBlock}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+        \PY{n}{cumsumPopulationList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{populationCumulativeCalc}\PY{p}{)}
+        \PY{n}{cumsumRoadList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{roadsCumulativeCalc}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Create Graph for Population Cumulative Sum Averages
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{82}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{npArrayPopulation} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cumsumPopulationList}\PY{p}{)}
+\PY{n}{binsPopulation} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{npArrayPopulation}\PY{p}{)}
+\PY{n}{graphPopulation} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{npArrayPopulation}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{binsPopulation}\PY{p}{)}
+\PY{n}{xPopulation} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{graphPopulation}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{yPopulation} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{graphPopulation}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{84}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{populationFigure} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xPopulation}\PY{p}{,}\PY{n}{yPopulation}\PY{p}{)}
+\PY{n}{populationFigure}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cumulative sum of Population Density for 10x10 pixels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cumulative Sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{populationFigure}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{populationFigure.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_83_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Create Graph for Cumulative Sums Averages for Roads
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{85}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{npArrayRoads} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cumsumRoadList}\PY{p}{)}
+\PY{n}{binsRoads} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{npArrayRoads}\PY{p}{)}
+\PY{n}{graphRoads} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{npArrayRoads}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{binsRoads}\PY{p}{)}
+\PY{n}{xRoads} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{graphRoads}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{yRoads} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{graphRoads}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{86}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{roadsFigure} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xRoads}\PY{p}{,}\PY{n}{yRoads}\PY{p}{)}
+\PY{n}{roadsFigure}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cumulative sum of Road pressence for 10x10 pixels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cumulative Sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{roadsFigure}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roadsFigure.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_86_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Cellular Automata Model
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{87}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Create Variables for the model}
+
+\PY{n}{row} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{column} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{step} \PY{o}{=} \PY{l+m+mi}{10}
+\PY{n}{doubleStep} \PY{o}{=} \PY{l+m+mi}{20}
+\PY{n}{maxHeight} \PY{o}{=} \PY{l+m+mi}{830}
+\PY{n}{maxWidth} \PY{o}{=} \PY{l+m+mi}{2160}
+
+\PY{n}{firstRow} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{secondRow} \PY{o}{=} \PY{l+m+mi}{10}
+\PY{n}{secondLastRow} \PY{o}{=} \PY{l+m+mi}{810}
+\PY{n}{lastRow} \PY{o}{=} \PY{l+m+mi}{820}
+
+
+\PY{n}{firstColumn} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{secondColumn} \PY{o}{=} \PY{l+m+mi}{10}
+\PY{n}{secondLastColumn} \PY{o}{=} \PY{l+m+mi}{2140}
+\PY{n}{lastColumn} \PY{o}{=} \PY{l+m+mi}{2150}
+
+\PY{c+c1}{\PYZsh{} Start Model with 0 for each rule tested}
+\PY{n}{roadsConditional} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{populationConditional} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{topBottomConditional} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{diagonalConditional} \PY{o}{=} \PY{l+m+mi}{0}
+
+\PY{c+c1}{\PYZsh{} Create a Temporary Copy of the Initial State }
+\PY{n}{tempMelusi} \PY{o}{=} \PY{n}{melusi2010}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Create Flat array for Accuracy Testing}
+\PY{n}{accuracyBenchmark} \PY{o}{=} \PY{n}{melusi2020\PYZus{}copy}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+\PY{n}{accuracyList} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+
+\PY{c+c1}{\PYZsh{} Run Model for 50 Generations}
+\PY{k}{for} \PY{n}{generations} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{:}
+  \PY{c+c1}{\PYZsh{} Go through entire 10 by 10 pixels in the Array}
+  \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{melusi2010\PYZus{}copy}\PY{p}{)}\PY{p}{,}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+    \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+      \PY{c+c1}{\PYZsh{}Blocks for cellular automata}
+      \PY{n}{TopMiddle} \PY{o}{=} \PY{k+kc}{None}
+      \PY{n}{BottomMiddle} \PY{o}{=} \PY{k+kc}{None}
+      \PY{n}{MiddleRight} \PY{o}{=} \PY{k+kc}{None}
+      \PY{n}{MiddleLeft} \PY{o}{=} \PY{k+kc}{None}
+      \PY{n}{TopLeft} \PY{o}{=} \PY{k+kc}{None}
+      \PY{n}{TopRight} \PY{o}{=} \PY{k+kc}{None}
+      \PY{n}{BottomLeft} \PY{o}{=} \PY{k+kc}{None}
+      \PY{n}{BottomRight} \PY{o}{=} \PY{k+kc}{None}
+
+      \PY{c+c1}{\PYZsh{} Cumulative Sums for Blocks created above}
+      \PY{n}{sumTopMiddle} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{sumBottomMiddle} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{sumMiddleRight} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{sumMiddleLeft} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{sumTopLeft} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{sumTopRight} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{sumBottomLeft} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{sumBottomRight} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{c+c1}{\PYZsh{} Averages for Cumulative Sums Blocks created above}
+      \PY{n}{averageOfSumsTopsBottoms} \PY{o}{=} \PY{l+m+mi}{0}
+      \PY{n}{averageOfSumsDiagonals} \PY{o}{=} \PY{l+m+mi}{0}
+
+      \PY{k}{if}\PY{p}{(}\PY{n}{row} \PY{o}{\PYZlt{}} \PY{n}{maxHeight} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}} \PY{n}{maxWidth}\PY{p}{)}\PY{p}{:}
+        \PY{n}{populationBlock} \PY{o}{=} \PY{n}{population\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{,}\PY{n}{column}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{]}
+        \PY{n}{roadsBlock} \PY{o}{=} \PY{n}{roads\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{,}\PY{n}{column}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{]}
+        \PY{n}{roadsCumulativeCalc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{roadsBlock}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+        \PY{n}{populationCumulativeCalc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{populationBlock}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+        
+        \PY{c+c1}{\PYZsh{} Check if Top Middle Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{secondRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{TopMiddle} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{o}{\PYZhy{}}\PY{n}{step}\PY{p}{:}\PY{n}{row}\PY{p}{,} \PY{n}{column}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{]}
+          \PY{n}{TopMiddle} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{TopMiddle}\PY{p}{)}
+          \PY{n}{sumTopMiddle} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{TopMiddle}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+        
+        \PY{c+c1}{\PYZsh{} Check if Bottom Middle Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{secondLastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{BottomMiddle} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{,} \PY{n}{column}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{]}
+          \PY{n}{BottomMiddle} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{BottomMiddle}\PY{p}{)}
+          \PY{n}{sumBottomMiddle} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{BottomMiddle}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+
+        \PY{c+c1}{\PYZsh{} Check if Middle Right Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{secondLastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{MiddleRight} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{,} \PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{doubleStep}\PY{p}{]}
+          \PY{n}{MiddleRight} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{MiddleRight}\PY{p}{)}
+          \PY{n}{sumMiddleRight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{MiddleRight}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+
+        \PY{c+c1}{\PYZsh{} Check if Middle Left Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{secondColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{MiddleLeft} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{,} \PY{n}{column}\PY{o}{\PYZhy{}}\PY{n}{step}\PY{p}{:}\PY{n}{column}\PY{p}{]}
+          \PY{n}{MiddleLeft} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{MiddleLeft}\PY{p}{)}
+          \PY{n}{sumMiddleLeft} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{MiddleLeft}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+
+        \PY{c+c1}{\PYZsh{} Check if Top Left Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{secondRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{secondColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{TopLeft} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{o}{\PYZhy{}}\PY{n}{step}\PY{p}{:}\PY{n}{row}\PY{p}{,} \PY{n}{column}\PY{o}{\PYZhy{}}\PY{n}{step}\PY{p}{:}\PY{n}{column}\PY{p}{]}
+          \PY{n}{TopLeft} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{TopLeft}\PY{p}{)}
+          \PY{n}{sumTopLeft} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{TopLeft}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+
+        \PY{c+c1}{\PYZsh{} Check if Top Right Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{secondRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{secondLastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{TopRight} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{o}{\PYZhy{}}\PY{n}{step}\PY{p}{:}\PY{n}{row}\PY{p}{,} \PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{doubleStep}\PY{p}{]}
+          \PY{n}{TopRight} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{TopRight}\PY{p}{)}
+          \PY{n}{sumTopRight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{TopRight}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+
+        \PY{c+c1}{\PYZsh{} Check if Bottom Left Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}} \PY{n}{secondLastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{secondColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{BottomLeft} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{doubleStep}\PY{p}{,} \PY{n}{column}\PY{o}{\PYZhy{}}\PY{n}{step}\PY{p}{:}\PY{n}{column}\PY{p}{]}
+          \PY{n}{BottomLeft} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{BottomLeft}\PY{p}{)}
+          \PY{n}{sumBottomLeft} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{BottomLeft}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+
+        \PY{c+c1}{\PYZsh{} Check if Bottom Right Block exists}
+        \PY{k}{if} \PY{p}{(}\PY{n}{row} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstRow} \PY{o+ow}{and} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{secondLastRow} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{firstColumn} \PY{o+ow}{and} \PY{n}{column} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{secondLastColumn}\PY{p}{)}\PY{p}{:}
+          \PY{n}{BottomRight} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{p}{[}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{:}\PY{n}{row}\PY{o}{+}\PY{n}{doubleStep}\PY{p}{,} \PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{:}\PY{n}{column}\PY{o}{+}\PY{n}{doubleStep}\PY{p}{]}
+          \PY{n}{BottomRight} \PY{o}{=} \PY{n}{vectorizeBWFunction}\PY{p}{(}\PY{n}{BottomRight}\PY{p}{)}
+          \PY{n}{sumBottomRight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{BottomRight}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}
+
+        \PY{c+c1}{\PYZsh{} Add Top and Bottom Blocks to a list}
+        \PY{n}{countTopsBottoms} \PY{o}{=} \PY{p}{[}\PY{n}{TopMiddle}\PY{p}{,} \PY{n}{BottomMiddle}\PY{p}{,} \PY{n}{MiddleRight}\PY{p}{,} \PY{n}{MiddleLeft}\PY{p}{]} 
+        \PY{c+c1}{\PYZsh{} Add Diagonal Blocks to a list}
+        \PY{n}{countDiags} \PY{o}{=} \PY{p}{[}\PY{n}{TopLeft}\PY{p}{,} \PY{n}{TopRight}\PY{p}{,} \PY{n}{BottomLeft}\PY{p}{,} \PY{n}{BottomRight}\PY{p}{]}
+
+        \PY{c+c1}{\PYZsh{} Count how many Neighbour Blocks there are for Current Block}
+        \PY{n}{noneCountsTops} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{countTopsBottoms} \PY{k}{if} \PY{n}{x} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{]}\PY{p}{)}
+        \PY{n}{noneCountsDiag} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{countDiags} \PY{k}{if} \PY{n}{x} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{]}\PY{p}{)}
+
+        \PY{c+c1}{\PYZsh{} Get Averages of Top and Bottom Blocks Cumulative Sums}
+        \PY{n}{averageOfSumsTopsBottoms} \PY{o}{=} \PY{p}{(}\PY{n}{sumTopMiddle} \PY{o}{+} \PY{n}{sumBottomMiddle} \PY{o}{+} \PY{n}{sumMiddleRight} \PY{o}{+} \PY{n}{sumMiddleLeft}\PY{p}{)} \PY{o}{/} \PY{n}{noneCountsTops}
+        \PY{c+c1}{\PYZsh{} Get Averages of Diagonals Blocks Cumulative Sums}
+        \PY{n}{averageOfSumsDiagonals} \PY{o}{=} \PY{p}{(}\PY{n}{sumTopLeft} \PY{o}{+} \PY{n}{sumTopRight} \PY{o}{+} \PY{n}{sumBottomLeft} \PY{o}{+} \PY{n}{sumBottomRight}\PY{p}{)} \PY{o}{/} \PY{n}{noneCountsDiag}
+        
+        \PY{c+c1}{\PYZsh{} First Generation}
+        \PY{k}{if} \PY{p}{(}\PY{n}{generations} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{n}{roadsConditional} \PY{o}{=} \PY{l+m+mf}{0.01}
+            \PY{n}{populationConditional} \PY{o}{=} \PY{l+m+mf}{0.08}
+            \PY{n}{diagonalsCondidtional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{n}{topBottomConditional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{c+c1}{\PYZsh{} First Generation Rules are Checked}
+            \PY{k}{if} \PY{p}{(}\PY{p}{(}\PY{n}{roadsCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{roadsConditional} \PY{o+ow}{or} \PY{n}{populationCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{populationConditional}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{averageOfSumsDiagonals} \PY{o}{\PYZgt{}} \PY{n}{diagonalsCondidtional} \PY{o+ow}{or} \PY{n}{averageOfSumsTopsBottoms} \PY{o}{\PYZgt{}} \PY{n}{topBottomConditional}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Fill Current Block as Alive}
+              \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{column}\PY{p}{,}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{tempMelusi}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{c+c1}{\PYZsh{} Second Generation}
+        \PY{k}{elif} \PY{p}{(}\PY{n}{generations} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{roadsConditional} \PY{o}{=} \PY{l+m+mf}{0.01}
+            \PY{n}{populationConditional} \PY{o}{=} \PY{l+m+mf}{0.08}
+            \PY{n}{diagonalsCondidtional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{n}{topBottomConditional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{c+c1}{\PYZsh{} Second Generation Rules are Checked}
+            \PY{k}{if} \PY{p}{(}\PY{p}{(}\PY{n}{roadsCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{roadsConditional} \PY{o+ow}{and} \PY{n}{populationCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{populationConditional}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{averageOfSumsDiagonals} \PY{o}{\PYZgt{}} \PY{n}{diagonalsCondidtional} \PY{o+ow}{or} \PY{n}{averageOfSumsTopsBottoms} \PY{o}{\PYZgt{}} \PY{n}{topBottomConditional}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Fill Current Block as Alive}
+              \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{column}\PY{p}{,}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{tempMelusi}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{c+c1}{\PYZsh{} Generations less than 40}
+        \PY{k}{elif} \PY{p}{(}\PY{n}{generations} \PY{o}{\PYZlt{}} \PY{l+m+mi}{40}\PY{p}{)}\PY{p}{:}
+            \PY{n}{roadsConditional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{n}{populationConditional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{n}{diagonalsCondidtional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{n}{topBottomConditional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{c+c1}{\PYZsh{} Generations less than 40 Rules are Checked}
+            \PY{k}{if} \PY{p}{(}\PY{p}{(}\PY{n}{roadsCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{roadsConditional} \PY{o+ow}{and} \PY{n}{populationCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{populationConditional}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{averageOfSumsDiagonals} \PY{o}{\PYZgt{}} \PY{n}{diagonalsCondidtional} \PY{o+ow}{or} \PY{n}{averageOfSumsTopsBottoms} \PY{o}{\PYZgt{}} \PY{n}{topBottomConditional}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Fill Current Block as Alive}
+              \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{column}\PY{p}{,}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{tempMelusi}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{c+c1}{\PYZsh{} Generations more than 40 and less than 51}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{roadsConditional} \PY{o}{=} \PY{l+m+mf}{0.09}
+            \PY{n}{populationConditional} \PY{o}{=} \PY{l+m+mf}{0.05}
+            \PY{n}{diagonalsCondidtional} \PY{o}{=} \PY{l+m+mf}{0.15}
+            \PY{n}{topBottomConditional} \PY{o}{=} \PY{l+m+mf}{0.1}
+            \PY{c+c1}{\PYZsh{} Generations(40 \PYZlt{} x \PYZlt{} 50) Rules are Checked}
+            \PY{k}{if} \PY{p}{(}\PY{p}{(}\PY{n}{roadsCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{roadsConditional} \PY{o+ow}{and} \PY{n}{populationCumulativeCalc} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{populationConditional}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{averageOfSumsDiagonals} \PY{o}{\PYZgt{}} \PY{n}{diagonalsCondidtional} \PY{o+ow}{or} \PY{n}{averageOfSumsTopsBottoms} \PY{o}{\PYZgt{}} \PY{n}{topBottomConditional}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Fill Current Block as Alive}
+              \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{row}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{column}\PY{p}{,}\PY{n}{column}\PY{o}{+}\PY{n}{step}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{tempMelusi}\PY{p}{[}\PY{n}{m}\PY{p}{,}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+  \PY{c+c1}{\PYZsh{} Copy temporary array to final array}
+  \PY{n}{melusi2010\PYZus{}copy} \PY{o}{=} \PY{n}{tempMelusi}
+  \PY{c+c1}{\PYZsh{} Calculate Accuracy}
+  \PY{n}{accuracyTemp} \PY{o}{=} \PY{n}{melusi2010\PYZus{}copy}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+  \PY{n}{score} \PY{o}{=} \PY{n}{cohen\PYZus{}kappa\PYZus{}score}\PY{p}{(}\PY{n}{accuracyBenchmark}\PY{p}{,}\PY{n}{accuracyTemp}\PY{p}{)}
+  \PY{n}{accuracyList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+  \PY{c+c1}{\PYZsh{} Write Current Simulated Generation to an image}
+  \PY{n}{filename} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pics/generation\PYZhy{}}\PY{l+s+si}{\PYZob{}}\PY{n+nb}{str}\PY{p}{(}\PY{n}{generations}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZhy{}melusi.png}\PY{l+s+s2}{\PYZdq{}}
+  \PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{n}{melusi2010\PYZus{}copy}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Create Graph for Accuracy results
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{88}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{generationsList} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n}{scoresFigure} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{generationsList}\PY{p}{,}\PY{n}{accuracyList}\PY{p}{)}
+\PY{n}{scoresFigure}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cohen}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s kappa coefficient after each Generation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Generation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kappa Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{scoresFigure}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scoresFigure.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Artefact_files/Artefact_90_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Get Maximum Accuracy achieved
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{89}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{max}\PY{p}{(}\PY{n}{accuracyList}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{89}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+0.6177552964145456
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Get Accuracy for each generation
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{91}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{:}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Generation: }\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}}\PY{n}{accuracyList}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Generation: 1   0.11625181498059378
+Generation: 2   0.19824922121107136
+Generation: 3   0.2030628354462608
+Generation: 4   0.20793481429046645
+Generation: 5   0.21093437785824343
+Generation: 6   0.21283046681369622
+Generation: 7   0.21812986043325577
+Generation: 8   0.22511088417746883
+Generation: 9   0.23225494066337948
+Generation: 10  0.23712807908806854
+Generation: 11  0.24030784142599682
+Generation: 12  0.24236259441785502
+Generation: 13  0.24795555301338124
+Generation: 14  0.25260419032659376
+Generation: 15  0.2572418136274782
+Generation: 16  0.2822792436920437
+Generation: 17  0.29504157655474317
+Generation: 18  0.30102906854032363
+Generation: 19  0.304648848523116
+Generation: 20  0.3143884842889031
+Generation: 21  0.3215714223769961
+Generation: 22  0.33780443805206917
+Generation: 23  0.3461394892632711
+Generation: 24  0.35302831352863406
+Generation: 25  0.3586621586000974
+Generation: 26  0.3618238888941685
+Generation: 27  0.36795669505675166
+Generation: 28  0.3723251828092663
+Generation: 29  0.37529002091648256
+Generation: 30  0.37650949057057026
+Generation: 31  0.37720597829276714
+Generation: 32  0.37720597829276714
+Generation: 33  0.37720597829276714
+Generation: 34  0.37720597829276714
+Generation: 35  0.37720597829276714
+Generation: 36  0.37720597829276714
+Generation: 37  0.37720597829276714
+Generation: 38  0.37720597829276714
+Generation: 39  0.37720597829276714
+Generation: 40  0.5819724568141758
+Generation: 41  0.5961732519113635
+Generation: 42  0.5976537496457666
+Generation: 43  0.5986502595275387
+Generation: 44  0.6137553851011719
+Generation: 45  0.6177552964145456
+Generation: 46  0.6164457180001524
+Generation: 47  0.6132858520005323
+Generation: 48  0.6098248847431835
+Generation: 49  0.6074016200347852
+Generation: 50  0.6053238869335381
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
