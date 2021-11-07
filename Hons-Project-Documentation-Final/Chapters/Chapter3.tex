@@ -110,18 +110,18 @@ From the Folium library the \texttt{map} method\footnote{\url{https://python-vis
 
 Below are a few figures that were created in this process. The coordinates of this region can also be seen in the figures above.
 For more information on these steps involved, the Appendix \ref{AppendixC} has more details.
-\begin{figure}[!ht]
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/MelusiArea}
 \caption{The boundary of the \textit{Melusi} area}
 \end{figure}
-\begin{figure}[!ht]
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/Melusi2010}
 \caption{The Land Usage of the \textit{Melusi} area in 2010}
 \label{fig:mel2010}
 \end{figure}
-\begin{figure}[!ht]
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/Melusi2020}
 \caption{The Land Usage of the \textit{Melusi} area in 2020}
@@ -132,20 +132,6 @@ The file can be downloaded and thereafter viewed interactively in a browser.
 
 The Land Usage for 2010 and 2020 can be seen in Figures \ref{fig:mel2010} and \ref{fig:mel2020}
 
-\begin{figure}[!ht]
-\centering
-%\includegraphics[width=20cm,height=15cm,keepaspectratio]{Figures/Chapter3/Folium}
-\includegraphics[scale=0.35,angle=90]{Figures/Chapter3/Folium}
-\caption{Interactive map of the \textit{Melusi} area}
-\label{fig:fol}
-\end{figure}
-\pagebreak
-\begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.6,angle=90]{Figures/Chapter3/Folium2}
-\caption{Another Interactive map of the \textit{Melusi} area}
-\label{fig:fol2}
-\end{figure}
 After the above \textit{Melusi} area datasets were explored the next two variables needed to be explored. These were the road networks and the population datasets.
 
 The road networks dataset as was mentioned in Section \ref{sec:open} is in the \texttt{.SHP} format, therefore once again the Geopandas \texttt{read\_file} method was employed to read the data. However the population dataset was in the \texttt{.TIF} format therefore another library Rioxarray had to be utilised.\footnote{\url{https://corteva.github.io/rioxarray/stable/rioxarray.html}} The method from this library is to read the file is \texttt{open\_rasterio}.
@@ -186,8 +172,8 @@ The CRS for all the datasets was \textit{EPSG 4326}, therefore the process of sa
 \label{sec:imgproc}
 After the images above were saved and analysed the following final dimensions were achieved, thanks to the high DPI;
 \begin{itemize}
-\item Width: 7,200 pixels
-\item Height: 4,800 pixels
+\item Width: 7,200 px
+\item Height: 4,800 px
 \end{itemize}
 To assist in the CA modelling (discussed further down) and to simplify the process, one of the approached that can be taken is to scale the images (also known as resizing). Another approach is to grayscale the images. Both of these approaches were applied. The rationale behind using these approaches is as follows; A trade off can be made between computational time in modelling with the data loss in an image.\cite{impact} Additionally, the norm in Image Processing Modelling is to utilise Convolutional Neural Networks, this will not be the approach taken in this research.\cite{cnn}
 
@@ -209,17 +195,53 @@ Additionally, the process of scaling the images utilised the \texttt{resize} met
 
 Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea.com/}} was employed to trim some of the edges of the images. The resulting dimensions of the images were as follows:
 \begin{itemize}
-\item Width: 2,160 pixels
-\item Height: 830 pixels
+\item Width: 2,160 px
+\item Height: 830 px
 \end{itemize}
 These resulting dimensions were perfect for the next process which involved creating the CA model.
 \subsection{Cellular Automata Modelling}
 To begin the process of creating the CA model, the first step involved reading the final images created from the steps in Section \ref{sec:imgproc}. This once again required the use of OpenCV. The function employed is the \texttt{imread} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#ga288b8b3da0892bd651fce07b3bbd3a56}}.
-sfsdfs \cite{imgp} Image processing
+
+Once the images were read into variables the grayscale function had to be applied again. This is due to the \texttt{imwrite} function saving images in the RGB format. This is also true for images that where grayscaled before and saved.
+
+\begin{table}[H]
+\caption{Unique values found in the population \texttt{DataArray} under the \texttt{values ndarray}}
+\centering
+\begin{tabular}{@{}l@{}}
+\toprule
+\multicolumn{1}{c}{Unique Values} \\ \midrule
+0.5483527804562259                \\
+1.9322995070209252                \\
+2.494171667535703                 \\
+2.5802248275941975                \\
+2.928383276590716                 \\
+3.843662634917949                 \\
+3.9742969374931736                \\
+4.0719211311237515                \\
+5.236094447939968                 \\
+5.558666899272438                 \\
+NaN                               \\ \bottomrule
+\end{tabular}
+\end{table}
+
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/gridlayers}
 \caption{Numpy Arrays visualised}
 \label{fig:gridlayers}
+\end{figure}
+\begin{figure}[!ht]
+\centering
+%\includegraphics[width=20cm,height=15cm,keepaspectratio]{Figures/Chapter3/Folium}
+\includegraphics[scale=0.35,angle=90]{Figures/Chapter3/Folium}
+\caption{Interactive map of the \textit{Melusi} area}
+\label{fig:fol}
+\end{figure}
+\pagebreak
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.6,angle=90]{Figures/Chapter3/Folium2}
+\caption{Another Interactive map of the \textit{Melusi} area}
+\label{fig:fol2}
 \end{figure}
