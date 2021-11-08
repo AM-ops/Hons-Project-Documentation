@@ -244,9 +244,15 @@
 %	COLOURS
 %----------------------------------------------------------------------------------------
 
-\usepackage[dvipsnames]{xcolor} % Required for specifying custom colours
-
+\usepackage[dvipsnames,table]{xcolor} % Required for specifying custom colours
 \colorlet{mdtRed}{red!50!black}
+
+%\usepackage[table]{xcolor}
+\definecolor{swotS}{RGB}{226,237,143}
+\definecolor{swotW}{RGB}{247,193,139}
+\definecolor{swotO}{RGB}{173,208,187}
+\definecolor{swotT}{RGB}{192,165,184}
+\usepackage[raster]{tcolorbox}
 
 %----------------------------------------------------------------------------------------
 %	MARGINS
