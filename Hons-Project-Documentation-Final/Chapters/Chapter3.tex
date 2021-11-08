@@ -22,8 +22,8 @@ The rationale for utilising this combination was due to the following factors:
 After the Literature Review was conducted the search for data began. A company by the name of GeoTerraImage (Pty) Ltd\footnote{\url{https://geoterraimage.com/}} which is located in Pretoria, South Africa was contacted and a data request was filed. The GIS data received was for an Informal settlement named \textit{"Melusi"}. The author is grateful for the data provided. The dataset received contained three main points of interest to this research:
 \begin{itemize}
 \item The outline or boundary of the \textit{"Melusi"} area.
-\item The Land Usage in the form of housing for the year 2010 for \textit{Melusi}.
-\item The Land Usage in the form of housing for the year 2020 for \textit{Melusi}.
+\item The Building Based Land Usage in the form of housing for the year 2010 for \textit{Melusi}.
+\item The Building Based Land Usage in the form of housing for the year 2020 for \textit{Melusi}.
 \end{itemize}
 \subsection{Open Sourced Data}
 \label{sec:open}
@@ -82,9 +82,9 @@ The datasets were loaded first into ArcGIS and thereafter into QGIS. The figures
 \caption{Output of the datasets in QGIS}
 \label{fig:Q}
 \end{figure}
-In the Figure \ref{fig:Arc} where ArcGIS is shown, the dark green colour represent Land Usage in the year 2020, however the Land Usage for the year 2010 was blended inside the bigger Land Usage of 2020. The lighter green colour represents the roads network in the year 2019.
+In the Figure \ref{fig:Arc} where ArcGIS is shown, the dark green colour represent Building Based Land Usage in the year 2020, however the Land Usage for the year 2010 was blended inside the bigger Building Based Land Usage of 2020. The lighter green colour represents the roads network in the year 2019.
 
-In the next Figure \ref{fig:Q} where QGIS is shown, the black colour represents the population dataset, the light green colour represents the boundary of the \textit{Melusi} area. The blue colour represents the Land Usage for the year 2010, and the purple colour is the Land Usage for the year 2020. Lastly, the light pink colour represents the roads network in the year 2019.
+In the next Figure \ref{fig:Q} where QGIS is shown, the black colour represents the population dataset, the light green colour represents the boundary of the \textit{Melusi} area. The blue colour represents the Building Based Land Usage for the year 2010, and the purple colour is the Building Based Land Usage for the year 2020. Lastly, the light pink colour represents the roads network in the year 2019.
 
 At this juncture the dataset for the medium-scale river coverage was dropped from the research as both the GIS software indicated that there was not any rivers close by  in the area.
 
@@ -118,19 +118,19 @@ For more information on these steps involved, the Appendix \ref{AppendixC} has m
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/Melusi2010}
-\caption{The Land Usage of the \textit{Melusi} area in 2010}
+\caption{The Building Based Land Usage of the \textit{Melusi} area in 2010}
 \label{fig:mel2010}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/Melusi2020}
-\caption{The Land Usage of the \textit{Melusi} area in 2020}
+\caption{The Building Based Land Usage of the \textit{Melusi} area in 2020}
 \label{fig:mel2020}
 \end{figure}
 Once the coordinates were acquired the Folium interactive map was created of the \textit{Melusi} area. This is shown below in Figures \ref{fig:fol} and \ref{fig:fol2}. The surrounding suburbs and regions can also be seen. The webpages for these can be accessed here\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area.html}}$^{,}$\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area2.html}}
 The file can be downloaded and thereafter viewed interactively in a browser.
 
-The Land Usage for 2010 and 2020 can be seen in Figures \ref{fig:mel2010} and \ref{fig:mel2020}
+The Building Based Land Usage for 2010 and 2020 can be seen in Figures \ref{fig:mel2010} and \ref{fig:mel2020}
 
 After the above \textit{Melusi} area datasets were explored the next two variables needed to be explored. These were the road networks and the population datasets.
 
@@ -179,8 +179,8 @@ To assist in the CA modelling (discussed further down) and to simplify the proce
 
 With regards to grayscaling, and fields such as image recognition the method or type of algorithms utilised to grayscale color images does impact performance.\cite{gray} However in this research those finer details are not in the project scope, hence a basic grayscale operation was performed for all of the following images:
 \begin{itemize}
-\item Land Usage of the \textit{Melusi} area in 2010.
-\item Land Usage of the \textit{Melusi} area in 2020.
+\item Building Based Land Usage of the \textit{Melusi} area in 2010.
+\item Building Based Land Usage of the \textit{Melusi} area in 2020.
 \item Road networks of the \textit{Melusi} area in 2019.
 \item Population Density of the \textit{Melusi} area in 2019.
 \end{itemize}
@@ -191,6 +191,8 @@ The grayscale formula from OpenCV's Documentation is as follows:
 \begin{center}
 $\text{RGB[A] to Gray:} \quad Y \leftarrow 0.299 \cdot R + 0.587 \cdot G + 0.114 \cdot B$
 \end{center}
+This formula simplified means the Red value of a pixel is multiplied with 0.299, the Green value of the pixel is multiplied with 0.587, and lastly the Blue value of a pixel is multiplied with 0.114. These new three values are summed up to give one value for the pixel in grayscale.
+
 Additionally, the process of scaling the images utilised the \texttt{resize} method\footnote{\url{https://docs.opencv.org/3.4.15/da/d54/group\_\_imgproc\_\_transform.html\#ga47a974309e9102f5f08231edc7e7529d}} which was called. The scale factor was $\frac{1}{3}$. This scale factor was chosen to prevent excess data. At this stage the Data Preprocessing is complete and the only aspect remaining is to to save the images after being processed. For this the \texttt{imwrite} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#gabbc7ef1aa2edfaa87772f1202d67e0ce}} from OpenCV was called for each of the four final images.
 
 Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea.com/}} was employed to trim some of the edges of the images. The resulting dimensions of the images were as follows:
@@ -198,14 +200,23 @@ Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea
 \item Width: 2,160 px
 \item Height: 830 px
 \end{itemize}
-These resulting dimensions were perfect for the next process which involved creating the CA model.
-\subsection{Cellular Automata Modelling}
-To begin the process of creating the CA model, the first step involved reading the final images created from the steps in Section \ref{sec:imgproc}. This once again required the use of OpenCV. The function employed is the \texttt{imread} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#ga288b8b3da0892bd651fce07b3bbd3a56}}.
+These resulting dimensions were ideal for the next process which involved creating the CA model.
+\section{Cellular Automata Modelling}
+To begin the process of creating the CA model, the first step involves reading the final images created from the steps in Section \ref{sec:imgproc}. This once again requires the use of OpenCV. The function employed is the \texttt{imread} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#ga288b8b3da0892bd651fce07b3bbd3a56}}.
 
-Once the images were read into variables the grayscale function had to be applied again. This is due to the \texttt{imwrite} function saving images in the RGB format. This is also true for images that where grayscaled before and saved.
+Once the images are read into variables the grayscale function has to be applied again. This is due to the nature of the \texttt{imwrite} function which saves images in the RGB format. This is also true for images that where grayscaled before and saved.
 
+The \texttt{imread} function returns a \texttt{ndarray} also know as a NumPy N-Dimensional Array. In the case of Images the \texttt{ndarray} is a 2-Dimensional Array. Using NumPy's Indexing\footnote{\url{https://numpy.org/doc/stable/reference/arrays.indexing.html\#arrays-indexing}} (Slicing) capabilities one can effortlessly access any value in the \texttt{ndarray}. The images needed for the modelling process are read into separate variables and the next procedures can be carried out.
+\\\\
+At this juncture the 2-Dimensional grids for the CA model are ready in the form of \texttt{ndarrays}. The images which are read into \texttt{ndarrays} are ready for a custom thresholding. As was expanded in Section \ref{sec:col}, thresholding is an additional approach that makes the process of defining rules for the CA modelling slightly more elementary. The two \texttt{ndarrays} that are put through the thresholding process are:
+\begin{itemize}
+\item The Population Density
+\item The Road Networks
+\end{itemize}
+For the Population Density array all the unique values were extracted using the NumPy \texttt{unique} Set routine. The Table \ref{table:uniq} below shows the output of these values.
 \begin{table}[H]
-\caption{Unique values found in the population \texttt{DataArray} under the \texttt{values ndarray}}
+\caption{Unique values found in the population \texttt{ndarray}}
+\label{table:uniq}
 \centering
 \begin{tabular}{@{}l@{}}
 \toprule
@@ -223,7 +234,9 @@ Once the images were read into variables the grayscale function had to be applie
 NaN                               \\ \bottomrule
 \end{tabular}
 \end{table}
+From this table the function \texttt{replaceWithPopulationDensity} was created. The details of this can be found in Appendix \ref{AppendixC}.
 
+For the Roads a simpler threshold function was created which was called \texttt{replaceRoadsForCalc}. The basic principle for this function is to replace all pixels in the array with a 1 if it is black (Meaning a road is present at that pixel) or white otherwise (no road present). The details can once again be found in Appendix \ref{AppendixC}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/gridlayers}
@@ -261,7 +274,7 @@ Source: Own Creation (2021)
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botmid}
   \caption{Bottom Middle Block}
 \end{subfigure}
-\caption{Edge cases for Middle Blocks}
+\caption{Edge cases for Middle Column Blocks}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
@@ -289,15 +302,15 @@ Source: Own Creation (2021)
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.5\linewidth]{Figures/Chapter3/botleft}
-  \caption{Bottom Left Block}
+  \includegraphics[width=.5\linewidth]{Figures/Chapter3/midleft}
+  \caption{Middle Left Block}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.5\linewidth]{Figures/Chapter3/botright}
-  \caption{Bottom Right Block}
+  \includegraphics[width=.5\linewidth]{Figures/Chapter3/midright}
+  \caption{Middle Right Block}
 \end{subfigure}
-\caption{Edge cases for Bottom Diagonal Blocks}
+\caption{Edge cases for Middle Row Blocks}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
