@@ -5,6 +5,7 @@
 \section{Description of Artefact}
 The nature of the research that is conducted in this study leads to a contrasting artefact that is delivered. The artefact is a culmination of image processing, programming, GIS data handling, and problem solving. This is made obvious as this chapter progresses further. In essence the artefact is the steps and procedures followed to come up with the final CA model.
 \section{Life Cycle Methodology}
+\label{sec:lcm}
 For the entire development of the Artefact a combination of three methodologies was utilised. These included:
 \begin{itemize}
 \item Waterfall
@@ -15,8 +16,22 @@ The rationale for utilising this combination was due to the following factors:
 \begin{itemize}
 \item The emphasis on self-management for the design and development of the Artefact.
 \item Incremental changes made in short iterations.
-\item Segmenting problems into "chunks" and thereafter working on them in an iterative manner.
+\item Segmenting problems into workable pieces and thereafter completing them in an effective manner.
+\item Analysing and recording each stage of the research progress and evaluating the progress to prevent backsliding.
+\item Iteratively solving smaller issues and problems as they arise.
 \end{itemize}
+\section{Design Science Schema for Research Study}
+According to Gregor \& Hevner, 2013 there are seven sections involved in tackling a Research study. They are listed as follows:\cite{dssteps}
+\begin{enumerate}
+\item Introduction
+\item Literature Review
+\item Method
+\item Artifact Description
+\item Evaluation
+\item Discussion
+\item Conclusions
+\end{enumerate}
+In conjunction with the methodologies discussed in 
 \section{Data Acquisition}
 \subsection{Closed Sourced Data}
 After the Literature Review was conducted the search for data began. A company by the name of GeoTerraImage (Pty) Ltd\footnote{\url{https://geoterraimage.com/}} which is located in Pretoria, South Africa was contacted and a data request was filed. The GIS data received was for an Informal settlement named \textit{"Melusi"}. The author is grateful for the data provided. The dataset received contained three main points of interest to this research:
@@ -243,10 +258,12 @@ These custom functions that were created utilised the NumPy \texttt{vectorize} f
 
 Another custom function that utilses \texttt{vectorize} is the \texttt{replaceBWForCalculations}. This function is exactly the same as the \texttt{replaceRoadsForCalc}, however it is used in the course of the CA model's simulation runtime. As the name suggests it replaces Black and White pixels with 1s and 0s in the Building Based Land Usage array.
 
-At this point all the four arrays which are synonymous with the four images saved in Section \ref{sec:imgproc} should be kept in mind as a 2-Dimensional array or grid on which a CA model can be created and simulated. The Figure \ref{fig:gridlayers} shows a diagrammatical visualisation of three identical 2-Dimensional data arrays with regards to width and height. The figure demonstrates that referencing a specific block or cell within these grid would be the same in any of them.
+The Roads array and the Population array which are vectorized, from here on will be labelled as \textit{variable arrays}. The two Building Based Land Usage arrays, which are not yet vectorized will be labelled as \textit{State arrays} due to them having states in the CA model simulation.
+
+At this point all the four arrays which are synonymous with the four images saved in Section \ref{sec:imgproc} should be kept in mind as a 2-Dimensional array or grid on which a CA model can be created and simulated. The Figure \ref{fig:gridlayers} shows a diagrammatical visualisation of three identical (with regards to width and height) 2-Dimensional data arrays. The figure demonstrates that referencing a specific block or cell within these grid would be the same in any of them.
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{Figures/Chapter3/gridlayers}
+\includegraphics[scale=0.8]{Figures/Chapter3/gridlayers}
 \caption{Multiple Identical 2D Arrays visualised}
 \label{fig:gridlayers}
 \end{figure}
@@ -349,6 +366,16 @@ The rationale behind this lengthy and detail process is due to the following rea
 \item The next step which involves formulating growth rules for the CA model contains the process of splitting the original 3 arrays into $10 \times 10$ sized smaller arrays. This translates to a $10 \times 10$ pixel block in the final images.
 \end{itemize}
 \subsection{Formulation of Rules}
+\textit{Pooling} is a discrete process involving sampling from a given set of inputs and down-sizing or down-sampling the inputs. The process of is typically achieved by either averaging, summing or by taking the maximum response of a given patch (sample)\cite{cnn,pool,murr}. Pooling is vastly utilised in the Image Processing domain and related fields. The Figure \ref{fig:pool} below shows an example of this process.
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/pool}
+\caption{A pictorial representation of \textit{Max Pooling} from $4 \times 4$ to $2 \times 2$}
+\label{fig:pool}
+\end{figure}
+\begin{center}
+Source: Taken from \cite{pool}
+\end{center}
 
 \begin{figure}[!ht]
 \centering
