@@ -237,13 +237,21 @@ NaN                               \\ \bottomrule
 From this table the function \texttt{replaceWithPopulationDensity} was created. The details of this can be found in Appendix \ref{AppendixC}.
 
 For the Roads a simpler threshold function was created which was called \texttt{replaceRoadsForCalc}. The basic principle for this function is to replace all pixels in the array with a 1 if it is black (Meaning a road is present at that pixel) or white otherwise (no road present). The details can once again be found in Appendix \ref{AppendixC}.
+
+These custom functions that were created utilised the NumPy \texttt{vectorize} function\footnote{\url{https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html}} to be applied to the entire arrays. The rationale for using \texttt{vectorize} is increased computational speed in carrying out the functions.
+
+Another custom function that utilses \texttt{vectorize} is the \texttt{replaceBWForCalculations}. This function is exactly the same as the \texttt{replaceRoadsForCalc}, however it is used in the course of the CA model's simulation runtime. As the name suggests it replaces Black and White pixels with 1s and 0s in the Building Based Land Usage array.
+
+At this point all the four arrays which are synonymous with the four images saved in Section \ref{sec:imgproc} should be kept in mind as a 2-Dimensional array or grid on which a CA model can be created and simulated. The Figure \ref{fig:gridlayers} shows a diagrammatical visualisation of three identical 2-Dimensional data arrays with regards to width and height. The figure demonstrates that referencing a specific block or cell within these grid would be the same in any of them.
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/Chapter3/gridlayers}
-\caption{Numpy Arrays visualised}
+\caption{Multiple Identical 2D Arrays visualised}
 \label{fig:gridlayers}
 \end{figure}
+The next logical step is to formulate rules for the CA Model. However before this can be conducted, the Rule of Adjacency from Section \ref{sec:LitCA} can be discussed further. The reason for this is to manage any and all edge cases that may arise while creating the rules for the CA model.
 
+The avant-garde approach which in turn is also intuitive to solve the issues of edge cases is to visualise two separate 2-Dimensional arrays. The first is of size $3 \times 3$ (labelled as $A$), and the the other is $n \times n$ (labelled as $B$) where $n$ is of arbitrary value. Thereafter, assign the center block of grid $A$ as the Current or Active block, and any of the other neighbouring blocks as the edge case to be tested. Place the Current block on top of grid $B$ and align it with the topmost-left block of grid $B$
 \begin{figure}[H]
 \centering
 \begin{subfigure}{.5\textwidth}
