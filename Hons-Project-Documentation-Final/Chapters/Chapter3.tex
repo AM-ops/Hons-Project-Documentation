@@ -202,6 +202,7 @@ Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea
 \end{itemize}
 These resulting dimensions were ideal for the next process which involved creating the CA model.
 \section{Cellular Automata Modelling}
+\subsection{Preliminary Discussion}
 To begin the process of creating the CA model, the first step involves reading the final images created from the steps in Section \ref{sec:imgproc}. This once again requires the use of OpenCV. The function employed is the \texttt{imread} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#ga288b8b3da0892bd651fce07b3bbd3a56}}.
 
 Once the images are read into variables the grayscale function has to be applied again. This is due to the nature of the \texttt{imwrite} function which saves images in the RGB format. This is also true for images that where grayscaled before and saved.
@@ -251,51 +252,30 @@ At this point all the four arrays which are synonymous with the four images save
 \end{figure}
 The next logical step is to formulate rules for the CA Model. However before this can be conducted, the Rule of Adjacency from Section \ref{sec:LitCA} can be discussed further. The reason for this is to manage any and all edge cases that may arise while creating the rules for the CA model.
 
-The avant-garde approach which in turn is also intuitive to solve the issues of edge cases is to visualise two separate 2-Dimensional arrays. The first is of size $3 \times 3$ (labelled as $A$), and the the other is $n \times n$ (labelled as $B$) where $n$ is of arbitrary value. Thereafter, assign the center block of grid $A$ as the Current or Active block, and any of the other neighbouring blocks as the edge case to be tested. Place the Current block on top of grid $B$ and align it with the topmost-left block of grid $B$
+Additionally, the method of referencing blocks based on location should be uniform, therefore below in Figure \ref{fig:labs} the naming conventions for this research are specified. These are also the labels which are used in the code located in Appendix \ref{AppendixC}. 
 \begin{figure}[H]
 \centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{Figures/Chapter3/topright}
-  \caption{Top Right Block}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{Figures/Chapter3/topleft}
-  \caption{Top Left Block}
-\end{subfigure}
-\caption{Edge cases for Top Diagonal Blocks}
-\begin{center}
-Source: Own Creation (2021)
-\end{center}
+\includegraphics[scale=0.5]{Figures/Chapter3/labels}
+\caption{Naming conventions for neighbours}
+\label{fig:labs}
 \end{figure}
+The avant-garde approach which in turn is also intuitive to solve the issues of edge cases is to visualise two separate 2-Dimensional arrays. The first is of size $3 \times 3$ (labelled as $A$), and the the other is $n \times n$ (labelled as $B$) where $n$ is of arbitrary value. Thereafter, assign the center block of grid $A$ as the \textit{Current} or \textit{Active} block, and any of the other neighbouring blocks as the edge case to be tested. Place the \textit{Current} block on top of grid $B$ and align it with the topmost-left block of grid $B$. Keeping the grid $B$ static begin to move grid $A$ towards the right-hand side of the grid $B$. Take note of the blocks where the current edge case being tested fails. In other words, the edge case's block lies outside of the grid $B$. All the edge cases can therefore be managed in any grid of size ($n \times n$) if  the procedure is followed correctly. In the Figures \ref{fig:e1}, \ref{fig:e2}, \ref{fig:e3}, and \ref{fig:e4} this avant-garde process is demonstrated visually. The colours in the pictures are defined below:
+\begin{itemize}
+\item Green - \textit{Current} or \textit{Active} Block
+\item Grey - Neighbours of \textit{Current} Block not being tested at the moment
+\item Red - Edge case being tested.
+\item Blue - Locations where edge case (in Red) passes
+\item White - Locations where edge case (in Red) fails 
+\end{itemize}
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{Figures/Chapter3/topmid}
-  \caption{Top Middle Block}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{Figures/Chapter3/botmid}
-  \caption{Bottom Middle Block}
-\end{subfigure}
-\caption{Edge cases for Middle Column Blocks}
-\begin{center}
-Source: Own Creation (2021)
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botleft}
   \caption{Bottom Left Block}
 \end{subfigure}%
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botright}
   \caption{Bottom Right Block}
@@ -304,16 +284,55 @@ Source: Own Creation (2021)
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
+\label{fig:e1}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{Figures/Chapter3/topright}
+  \caption{Top Right Block}
+\end{subfigure}%
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{Figures/Chapter3/topleft}
+  \caption{Top Left Block}
+\end{subfigure}
+\caption{Edge cases for Top Diagonal Blocks}
+\begin{center}
+Source: Own Creation (2021)
+\end{center}
+\label{fig:e2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{Figures/Chapter3/topmid}
+  \caption{Top Middle Block}
+\end{subfigure}%
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{Figures/Chapter3/botmid}
+  \caption{Bottom Middle Block}
+\end{subfigure}
+\caption{Edge cases for Middle Column Blocks}
+\begin{center}
+Source: Own Creation (2021)
+\end{center}
+\label{fig:e3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/midleft}
   \caption{Middle Left Block}
 \end{subfigure}%
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/midright}
   \caption{Middle Right Block}
@@ -322,7 +341,14 @@ Source: Own Creation (2021)
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
+\label{fig:e4}
 \end{figure}
+The rationale behind this lengthy and detail process is due to the following reasons:
+\begin{itemize}
+\item The CA model must not throw any errors while it iterates through the grid
+\item The next step which involves formulating growth rules for the CA model contains the process of splitting the original 3 arrays into $10 \times 10$ sized smaller arrays. This translates to a $10 \times 10$ pixel block in the final images.
+\end{itemize}
+\subsection{Formulation of Rules}
 
 \begin{figure}[!ht]
 \centering

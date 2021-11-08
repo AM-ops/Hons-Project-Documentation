@@ -356,7 +356,7 @@ KOMA-script documentation for details.}]{fancyhdr}
 	\DeclareDocumentEnvironment{abstract}{ O{\null\vfill} }{
 		\checktoopen
 		\tttypeout{\abstractname}
-		#1%added to be able to have abstract more than one page long
+		%#1%added to be able to have abstract more than one page long
 		\thispagestyle{plain}
 		\begin{center}
 			{\normalsize \MakeUppercase{\univname} \par}% University name in capitals
@@ -378,23 +378,24 @@ KOMA-script documentation for details.}]{fancyhdr}
 		\vfill\null
 	}
 }
-
+\newcommand{\abstractnameextra}{Opsomming}
+\newcommand{\afrth}{'n Sellulêre outomatiese benadering om informele nedersettingsgroei te modelleer}
 \DeclareDocumentEnvironment{extraAbstract}{ O{\null\vfill} }{
 	\checktoopen
-	\tttypeout{\abstractname}
-	#1%added to be able to have abstract more than one page long
+	\tttypeout{\abstractnameextra}
+	%#1%added to be able to have abstract more than one page long
 	\thispagestyle{empty}
 	\begin{center}
 		{\normalsize \MakeUppercase{\univname} \par}% University name in capitals
 		\bigskip
-		{\huge\textit{\abstractname} \par}
+		{\huge\textit{\abstractnameextra} \par}
 		\bigskip
 		{\normalsize \facname \par}% Faculty name
 		{\normalsize \deptname \par}% Department name
 		\bigskip
 		{\normalsize \degreename\par}% Degree name
 		\bigskip
-		{\normalsize\bfseries \@title \par}% Thesis title
+		{\normalsize\bfseries \afrth \par}% Thesis title
 		\medskip
 		{\normalsize \byname{} \authorname \par}% Author name
 		\bigskip
