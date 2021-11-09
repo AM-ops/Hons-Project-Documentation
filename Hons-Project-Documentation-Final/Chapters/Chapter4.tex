@@ -33,7 +33,7 @@ Besides the Kappa coefficient the following additional metrics have been used in
 \item Other spatial indices
 \end{itemize}
 
-Besides the Kappa coefficient the the Visual Comparison metric was chosen as an additional metric to validate the accuracy of the final CA model. For this approach two separate techniques were utilsed. The first involved creating a 
+Besides the Kappa coefficient the the Visual Comparison metric was chosen as an additional metric to validate the accuracy of the final CA model. For this approach two separate techniques were utilised. The first involved creating a GIF image from all the images that were saved during the duration of the CA model execution. The GIF was created using imgflip\footnote{\url{https://imgflip.com/gif-maker}}. The GIF can be found at this document GitHub repository.\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Figures/gifs/Growth.gif}} A few snippets from the GIF image are displayed below in Figure \ref{fig:gen50}.
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -43,7 +43,7 @@ Besides the Kappa coefficient the the Visual Comparison metric was chosen as an 
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-1-melusi}
-  \caption*{Generation $t = 1$}
+  \caption*{Time step $t = 1$}
 \end{subfigure}
 \end{figure}
 
@@ -51,12 +51,12 @@ Besides the Kappa coefficient the the Visual Comparison metric was chosen as an 
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-5-melusi}
-  \caption*{Generation $t = 5$}
+  \caption*{Time step $t = 5$}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-10-melusi}
-  \caption*{Generation $t = 10$}
+  \caption*{Time step $t = 10$}
 \end{subfigure}
 \end{figure}
 
@@ -64,12 +64,12 @@ Besides the Kappa coefficient the the Visual Comparison metric was chosen as an 
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-15-melusi}
-  \caption*{Generation $t = 15$}
+  \caption*{Time step $t = 15$}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-20-melusi}
-  \caption*{Generation $t = 20$}
+  \caption*{Time step $t = 20$}
 \end{subfigure}
 \end{figure}
 
@@ -77,12 +77,12 @@ Besides the Kappa coefficient the the Visual Comparison metric was chosen as an 
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-25-melusi}
-  \caption*{Generation $t = 25$}
+  \caption*{Time step $t = 25$}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-30-melusi}
-  \caption*{Generation $t = 30$}
+  \caption*{Time step $t = 30$}
 \end{subfigure}
 \end{figure}
 
@@ -90,12 +90,12 @@ Besides the Kappa coefficient the the Visual Comparison metric was chosen as an 
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-35-melusi}
-  \caption*{Generation $t = 35$}
+  \caption*{Time step $t = 35$}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-40-melusi}
-  \caption*{Generation $t = 40$}
+  \caption*{Time step $t = 40$}
 \end{subfigure}
 \end{figure}
 
@@ -103,47 +103,62 @@ Besides the Kappa coefficient the the Visual Comparison metric was chosen as an 
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-45-melusi}
-  \caption{Generation $t = 45$}
+  \caption{Time step $t = 45$}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Figures/Chapter4/generation-50-melusi}
-  \caption{Generation $t = 50$}
+  \caption{Time step $t = 50$}
 \end{subfigure}
-\caption{Simulated Growth for different periods of the 50 Generations}
+\caption{Simulated Growth of Building Based Land Usage for 50 time steps}
 \label{fig:gen50}
 \end{figure}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
+The second approach in the Visual comparisons metric was to create two images.
+\begin{enumerate}
+\item An image that overlays the Simulated Growth of the Building Based Land Usage on top of a General Reference Map.
+\item An image that overlays the Actual or Existing Building Based Land Usage on top of a General Reference Map.
+\end{enumerate}
+The images for the above are seen in Figures \ref{fig:simmap} and \ref{fig:curmap} respectively. The validity of the CA model was then seen visually.
+\\\\
+Going back to the Kappa coefficient, a graph and a table was created to visualise the performance of the CA model over the 50 time steps. The former is seen in Figure \ref{fig:scores} and the later in Table \ref{table:kap2}.
 
+The highest coefficient acieved was at the time step 45
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{Figures/Chapter4/scoresFigure}
-\caption{Kappa coefficient for each generation simulated}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.3,angle=90]{Figures/Chapter4/Actual}
-\caption{Existing Building Based Land Usage on a Map}
+\caption{Kappa coefficient for each Time step simulated}
+\label{fig:scores}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.3,angle=90]{Figures/Chapter4/Simulated}
 \caption{Simulated Growth of Building Based Land Usage on a Map}
+\label{fig:simmap}
 \end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3,angle=90]{Figures/Chapter4/Actual}
+\caption{Existing Building Based Land Usage on a Map}
+\label{fig:curmap}
+\end{figure}
+
+
 
 \begin{table}[H]
 \setlength{\tabcolsep}{12pt}
 \renewcommand{\arraystretch}{1.1}
     \caption{Accuracy results for each time step}
+    \label{table:kap2}
     \begin{minipage}{.5\linewidth}
       %\caption{}
             \begin{tabular}{@{}cl@{}}
             \toprule
-            Generation & $\kappa$ coefficient \\ \midrule
+            Time step & $\kappa$ coefficient \\ \midrule
             1 &  0.11625181498059378 \\
 2 &  0.19824922121107136 \\
 3 &  0.20306283544626080 \\
@@ -175,7 +190,7 @@ Source: Own Creation (2021)
         %\caption{}
         \begin{tabular}{@{}cl@{}}
           \toprule
-          Generation & $\kappa$ coefficient \\ \midrule
+          Time step & $\kappa$ coefficient \\ \midrule
           26 & 0.36182388889416850 \\
           27 & 0.36795669505675166 \\ 
           28 & 0.37232518280926630 \\
