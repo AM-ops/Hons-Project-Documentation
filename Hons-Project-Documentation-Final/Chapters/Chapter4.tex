@@ -1,10 +1,8 @@
 % Chapter 4
 \chapter{Results \& Discussion} % Main chapter title
-The CA model was created and run for 50 generations or time steps. An image was generated of the simulated Building Based Land Usage growth and it was saved. The accuracy of the simulated growth was also calculated and saved for each time step. The metric involved for calculating the accuracy  was the Kappa coefficient (also known as the Cohen's Kappa coefficient). The formula to calculate this coefficient is as follows:
+The CA model created in the previous chapter ran for 50 generations or time steps. An image was generated of the simulated Building Based Land Usage growth and it was saved. Additionally, the accuracy of the simulated growth was calculated and saved for each time step. A model without any validation and accuracy testing is ineffectual. For this reason a metric has to be employed to test the accuracy. The metric involved for this process is the Kappa coefficient (also known as the Cohen's Kappa coefficient). The formula to calculate this coefficient is as follows:
 \begin{center}
-$\kappa = (p_o - p_e) / (1 - p_e)$\\
-or\\
-$\kappa = \frac{(p_o - p_e)}{(1 - p_e)}$
+$\kappa = (p_o - p_e) / (1 - p_e)$
 \end{center}
 The variable $p_o$ is 
 The Table \ref{table:kap} below shows the magnitudes guidelines of the Kappa coefficient and their respective values.\cite{kappatb}
@@ -125,76 +123,9 @@ Source: Own Creation (2021)
 \caption{Simulated Growth of Building Based Land Usage on a Map}
 \end{figure}
 
-%\begin{table}[H]
-%\caption{Accuracy results for each time step}
-%\begin{multicols}{2}
-%\begin{tabular}{@{}cl@{}}
-%\toprule
-%Generation or Time Step & $\kappa$ coefficient \\ \midrule
-%1 &  0.11625181498059378 \\
-%2 &  0.19824922121107136 \\
-%3 &  0.2030628354462608 \\
-%4 &  0.20793481429046645 \\
-%5 &  0.21093437785824343 \\
-%6 &  0.21283046681369622 \\
-%7 &  0.21812986043325577 \\
-%8 &  0.22511088417746883 \\
-%9 &  0.23225494066337948 \\
-%10 & 0.23712807908806854 \\
-%11 & 0.24030784142599682 \\
-%12 & 0.24236259441785502 \\
-%13 & 0.24795555301338124 \\
-%14 & 0.25260419032659376 \\
-%15 & 0.2572418136274782 \\
-%16 & 0.2822792436920437 \\
-%17 & 0.29504157655474317 \\
-%18 & 0.30102906854032363 \\
-%19 & 0.304648848523116 \\
-%20 & 0.3143884842889031 \\
-%21 & 0.3215714223769961 \\
-%22 & 0.33780443805206917 \\
-%23 & 0.3461394892632711 \\
-%24 & 0.35302831352863406 \\
-%25 & 0.3586621586000974 \\
-%26 & 0.3618238888941685 \\
-%27 & 0.36795669505675166 \\ \bottomrule
-%\end{tabular}
-%%\end{table}
-%\columnbreak
-%%\begin{table}[H]
-%\begin{tabular}{@{}cl@{}}
-%\toprule
-%Generation or Time Step & $\kappa$ coefficient \\ \midrule
-%28 & 0.3723251828092663 \\
-%29 & 0.37529002091648256 \\
-%30 & 0.37650949057057026 \\
-%31 & 0.37720597829276714 \\
-%32 & 0.37720597829276714 \\
-%33 & 0.37720597829276714 \\
-%34 & 0.37720597829276714 \\
-%35 & 0.37720597829276714 \\
-%36 & 0.37720597829276714 \\
-%37 & 0.37720597829276714 \\
-%38 & 0.37720597829276714 \\
-%39 & 0.37720597829276714 \\
-%40 & 0.5819724568141758 \\
-%41 & 0.5961732519113635 \\
-%42 & 0.5976537496457666 \\
-%43 & 0.5986502595275387 \\
-%44 & 0.6137553851011719 \\
-%45 & 0.6177552964145456 \\
-%46 & 0.6164457180001524 \\
-%47 & 0.6132858520005323 \\
-%48 & 0.6098248847431835 \\
-%49 & 0.6074016200347852 \\
-%50 & 0.6053238869335381 \\ \bottomrule
-%\end{tabular}
-%\end{table}
-%\end{multicols}
-
 \begin{table}[H]
-\setlength{\tabcolsep}{15pt}
-\renewcommand{\arraystretch}{1.8}
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\arraystretch}{1.1}
     \caption{Accuracy results for each time step}
     \begin{minipage}{.5\linewidth}
       %\caption{}
