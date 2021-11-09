@@ -270,7 +270,7 @@ The Roads array and the Population array which are vectorized, from here on will
 At this point all the four arrays which are synonymous with the four images saved in Section \ref{sec:imgproc} should be kept in mind as a 2-Dimensional array or grid on which a CA model can be created and simulated. The Figure \ref{fig:gridlayers} shows a diagrammatical visualisation of three identical (with regards to width and height) 2-Dimensional data arrays. The figure demonstrates that referencing a specific block or cell within these grid would be the same in any of them.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.8]{Figures/Chapter3/gridlayers}
+\includegraphics[scale=0.6]{Figures/Chapter3/gridlayers}
 \caption{Multiple Identical 2D Arrays visualised}
 \label{fig:gridlayers}
 \end{figure}
@@ -283,10 +283,10 @@ Additionally, the method of referencing blocks based on location should be unifo
 \caption{Naming conventions for neighbours}
 \label{fig:labs}
 \end{figure}
-The avant-garde approach which in turn is also intuitive to solve the issues of edge cases is to visualise two separate 2-Dimensional arrays. The first is of size $3 \times 3$ (labelled as $A$), and the the other is $n \times n$ (labelled as $B$) where $n$ is of arbitrary value. Thereafter, assign the center block of grid $A$ as the \textit{Current} or \textit{Active} block, and any of the other neighbouring blocks as the edge case to be tested. Place the \textit{Current} block on top of grid $B$ and align it with the topmost-left block of grid $B$. Keeping the grid $B$ static begin to move grid $A$ towards the right-hand side of the grid $B$. Take note of the blocks where the current edge case being tested fails. In other words, the edge case's block lies outside of the grid $B$. All the edge cases can therefore be managed in any grid of size ($n \times n$) if  the procedure is followed correctly. In the Figures \ref{fig:e1}, \ref{fig:e2}, \ref{fig:e3}, and \ref{fig:e4} this avant-garde process is demonstrated visually. The colours in the pictures are defined below:
+The avant-garde approach which in turn is also intuitive to solve the issues of edge cases is to visualise two separate 2-Dimensional arrays. The first is of size $3 \times 3$ (labelled as $A$), and the the other is $n \times n$ (labelled as $B$) where $n$ is of arbitrary value. Thereafter, assign the center block of grid $A$ as the \textit{Current} or \textit{Active} cell, and any of the other neighbouring cells as the edge case to be tested. Place the \textit{Current} cell on top of grid $B$ and align it with the top-left cell of grid $B$. Keeping the grid $B$ static begin to move grid $A$ towards the right-hand side of the grid $B$. Take note of the cells where the current edge case being tested fails. In other words, the edge case's cell lies outside of the grid $B$. All the edge cases can therefore be managed in any grid of size ($n \times n$) if the procedure is followed correctly. In the Figures \ref{fig:e1}, \ref{fig:e2}, \ref{fig:e3}, and \ref{fig:e4} this avant-garde process is demonstrated visually. The colours in the pictures are defined below:
 \begin{itemize}
-\item Green - \textit{Current} or \textit{Active} Block
-\item Grey - Neighbours of \textit{Current} Block not being tested at the moment
+\item Green - \textit{Current} or \textit{Active} Cell
+\item Grey - Neighbours of \textit{Current} Cell not being tested at the moment
 \item Red - Edge case being tested.
 \item Blue - Locations where edge case (in Red) passes
 \item White - Locations where edge case (in Red) fails 
@@ -304,7 +304,7 @@ The avant-garde approach which in turn is also intuitive to solve the issues of 
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botright}
   \caption{Bottom Right Block}
 \end{subfigure}
-\caption{Edge cases for Bottom Diagonal Blocks}
+\caption{Edge cases for Bottom Diagonal Cells}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
@@ -323,7 +323,7 @@ Source: Own Creation (2021)
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/topleft}
   \caption{Top Left Block}
 \end{subfigure}
-\caption{Edge cases for Top Diagonal Blocks}
+\caption{Edge cases for Top Diagonal Cells}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
@@ -342,7 +342,7 @@ Source: Own Creation (2021)
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botmid}
   \caption{Bottom Middle Block}
 \end{subfigure}
-\caption{Edge cases for Middle Column Blocks}
+\caption{Edge cases for Middle Column Cells}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
@@ -361,7 +361,7 @@ Source: Own Creation (2021)
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/midright}
   \caption{Middle Right Block}
 \end{subfigure}
-\caption{Edge cases for Middle Row Blocks}
+\caption{Edge cases for Middle Row Cells}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
@@ -373,7 +373,10 @@ The rationale behind this lengthy and detail process is due to the following rea
 \item The next step which involves formulating growth rules for the CA model contains the process of splitting the original 3 arrays into $10 \times 10$ sized smaller arrays. This translates to a $10 \times 10$ pixel block in the final images.
 \end{itemize}
 \subsection{Formulation of Rules}
-
+Referring back to the information provided in Section \ref{sec:imgproc}, the reasoning for having images in the dimensions of 2,160 px by 830 px is clear. These images which are now called \textit{variable arrays} when they are assigned to variables (after being read)  will have the same 2-Dimensional size, hence the step of splitting the variable arrays into smaller subsets is simplified without being wary of outlying values. The grid size for the CA model is therefore in the dimensions of $2,160 \times 830$ elements. The individual cells dimensions in this grid are $10 \times 10$, therefore the total cells present is:
+\begin{center}
+$216 \times 83 = 17,928$
+\end{center}
 
 \begin{figure}[H]
 \centering
