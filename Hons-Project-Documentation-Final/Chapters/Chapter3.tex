@@ -377,6 +377,30 @@ Referring back to the information provided in Section \ref{sec:imgproc}, the rea
 \begin{center}
 $216 \times 83 = 17,928$
 \end{center}
+The concept of Pooling was discussed in Section \ref{sec:col}, the different rules that can be applied to down-size inputs was also touched upon. The Figure \ref{fig:pool} demonstrated the Max rule which returns the maximum value from a given set, however for this research study the summing and averaging approach is employed. The detailed procedure is discussed below.
+
+The Cumulative Sum of all individual cells in the variable arrays is taken. This means a total of 35,856 Cumulative Sums are carried out ($17,928 + 17,928 = 35,856$ for the two variable arrays). To calculate this sum the NumPy \texttt{cumsum} routine\footnote{\url{https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html}} was called. Thereafter each of the Cumulative Sums is divided by $100$ to get the Average Cumulative Sum. This is because each cell in the variable arrays has $10 \times 10 = 100$ values.
+
+The Figure \ref{fig:cumsumpool} below demonstrates an example of a Cumulative Sum Pool Operation which is carried out for each of the cells in the variable arrays. This operation sums all the values found in a given cell. The averages of each these sums (35,856 in total) is easily calculated thereafter.
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{Figures/Chapter3/sumpool}
+\caption{An example of a \textit{Cumulative Sum Pool Operation}}
+\label{fig:cumsumpool}
+\end{figure}
+After the averages of the Cumulative Sums is carried out the frequency of said averages is visualised to analyse the spread of the occurring values. This is then used to formulate conditional rules for the CA model. The Figures \ref{fig:cumsumpop} and \ref{fig:cumsumroad} below display the results of the visualisations.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{Figures/Chapter3/populationSum}
+\caption{Frequency of Averages of the Cumulative Sums in the Population variable array}
+\label{fig:cumsumpop}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{Figures/Chapter3/roadsSum}
+\caption{Frequency of Averages of the Cumulative Sums in the Roads variable array}
+\label{fig:cumsumroad}
+\end{figure}
 
 \begin{figure}[H]
 \centering
