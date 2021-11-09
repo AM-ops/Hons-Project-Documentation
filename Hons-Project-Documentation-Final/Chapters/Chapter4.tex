@@ -1,11 +1,13 @@
 % Chapter 4
 \chapter{Results \& Discussion} % Main chapter title
-The CA model created in the previous chapter ran for 50 generations or time steps. An image was generated of the simulated Building Based Land Usage growth and it was saved. Additionally, the accuracy of the simulated growth was calculated and saved for each time step. A model without any validation and accuracy testing is ineffectual. For this reason a metric has to be employed to test the accuracy. The metric involved for this process is the Kappa coefficient (also known as the Cohen's Kappa coefficient). The formula to calculate this coefficient is as follows:
+\label{Chapter4} % For referencing the chapter elsewhere, use \ref{Chapter4}
+The CA model created in the previous chapter ran for 50 generations or time steps. An image was generated of the simulated Building Based Land Usage growth and it was saved. Additionally, the accuracy of the simulated growth was calculated and saved for each time step. A model without any validation and accuracy testing is ineffectual. For this reason a metric has to be employed to test the accuracy. The metric involved for this process is the Kappa coefficient (also known as Cohen's Kappa coefficient). This metric returns a score that expresses the level of agreement between two annotators and estimate the ground truth. It is utilised vastly in Machine Learning problems, but has also seen its usage in CA urban modelling\cite{m1,m2,m3,m4,m5,m6,m7,m8,m9}. The formula to calculate this coefficient is as follows:\cite{sklearn}
 \begin{center}
 $\kappa = (p_o - p_e) / (1 - p_e)$
 \end{center}
-The variable $p_o$ is 
-The Table \ref{table:kap} below shows the magnitudes guidelines of the Kappa coefficient and their respective values.\cite{kappatb}
+The variable $p_o$ is the the observed agreement ratio (observed accuracy), and the variable $p_e$ is the expected agreement (expected accuracy).
+
+The Table \ref{table:kap} below shows values and their respective magnitudes guidelines for the Kappa coefficient\cite{kappatb}.
 \begin{table}[H]
 \centering
 \caption{Interpreting the Kappa coefficient magnitude}
@@ -21,7 +23,17 @@ $0.61 \leq \kappa \leq 0.804$                  & Substantial agreement          
 $0.81 \leq \kappa \leq 1$                     & Almost perfect agreement                \\ \bottomrule
 \end{tabular}
 \end{table}
-\label{Chapter4} % For referencing the chapter elsewhere, use \ref{Chapter4}
+Besides the Kappa coefficient the following additional metrics have been used in similar CA urban modelling research:
+\begin{itemize}
+\item Visual comparisons between of modelled and real growth\cite{om1,om6,m8}
+\item Ratio between modelled urban px and number of real urban px\cite{om2,om5}
+\item Regression analysis (r-square values)\cite{om3}
+\item The Lee–Sallee index\cite{om4,m1}
+\item The Moran's I index\cite{om6}
+\item Other spatial indices
+\end{itemize}
+
+Besides the Kappa coefficient the 
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -183,7 +195,7 @@ Source: Own Creation (2021)
           42 & 0.59765374964576660 \\
           43 & 0.59865025952753870 \\
           44 & 0.61375538510117190 \\
-          45 & 0.61775529641454560 \\
+          \textbf{45} & \textbf{0.61775529641454560} \\
           46 & 0.61644571800015240 \\
           47 & 0.61328585200053230 \\
           48 & 0.60982488474318350 \\
