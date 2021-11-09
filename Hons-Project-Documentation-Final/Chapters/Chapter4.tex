@@ -33,7 +33,7 @@ Besides the Kappa coefficient the following additional metrics have been used in
 \item Other spatial indices
 \end{itemize}
 
-Besides the Kappa coefficient the the Visual Comparison metric was chosen as an additional metric to validate the accuracy of the final CA model. For this approach two separate techniques were utilised. The first involved creating a GIF image from all the images that were saved during the duration of the CA model execution. The GIF was created using imgflip\footnote{\url{https://imgflip.com/gif-maker}}. The GIF can be found at this document GitHub repository.\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Figures/gifs/Growth.gif}} A few snippets from the GIF image are displayed below in Figure \ref{fig:gen50}.
+Besides the Kappa coefficient the the Visual Comparison metric was chosen as an additional metric to validate the accuracy of the final CA model. For this approach two separate techniques were utilised. The first involved creating a GIF image from all the images that were saved during the duration of the CA model execution. The GIF was created using imgflip\footnote{\url{https://imgflip.com/gif-maker}}. The GIF can be found at this research study's repository.\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Figures/gifs/Growth.gif}} A few snippets from the GIF image are displayed below in Figure \ref{fig:gen50}.
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -125,7 +125,16 @@ The images for the above are seen in Figures \ref{fig:simmap} and \ref{fig:curma
 \\\\
 Going back to the Kappa coefficient, a graph and a table was created to visualise the performance of the CA model over the 50 time steps. The former is seen in Figure \ref{fig:scores} and the later in Table \ref{table:kap2}.
 
-The highest coefficient acieved was at the time step 45
+The highest coefficient achieved was at the time step 45 with a value of \texttt{0.61775529641454560}. If this is compared to the Magnitude guidelines in Table \ref{table:kap} it falls under the "Substantial agreement" option. This is competent enough for the level of this research study. On the other hand, research cited in this paper had the Kappa coefficient range from 0.5 to 0.99. Therefore the results achieved in this study are admirable as well as sufficient.
+
+Additionally, the research cited also was of a higher standard and sophisticated calibre. The culmination of this research study was achieved with just two variables, namely the Population density (Social Factor) and the Road networks (Infrastructure Factor).
+
+However, on the downside the CA model did appear to drop accuracy in the last few time steps. This can be attributed to the following inferences made by the author:
+\begin{itemize}
+\item Although the original data of the Roads and Population Density was limited to just the \textit{Melusi} area, the limited area was a fixed bounding box. This box also encompassed roads that lead to other areas, and the Population Density of said areas. The approach to calculate the accuracy was discussed in Section \ref{sec:runmod}, therefore once the model decided to venture out of the \textit{Melusi} area in time step 45, the accuracy dropped.
+\item The rules for time steps 40 and above became a bit too unstable or possibly chaotic in nature.
+\item From reviewing the relevant literature it has been stated that Cellular Automata given certain initial states can branch out over the balance of Order into Chaos.
+\end{itemize}
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{Figures/Chapter4/scoresFigure}
