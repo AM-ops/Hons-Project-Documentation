@@ -149,7 +149,7 @@ For more information on these steps involved, the Appendix \ref{AppendixC} has m
 \caption{The Building Based Land Usage of the \textit{Melusi} area in 2020}
 \label{fig:mel2020}
 \end{figure}
-Once the coordinates were acquired the Folium interactive map was created of the \textit{Melusi} area. This is shown below in Figures \ref{fig:fol} and \ref{fig:fol2}. The surrounding suburbs and regions can also be seen. The webpages for these can be accessed here\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area.html}}$^{,}$\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area2.html}}
+Once the coordinates were acquired the Folium interactive map was created of the \textit{Melusi} area. This is shown at the endof this Chapter in Figures \ref{fig:fol} and \ref{fig:fol2}. The surrounding suburbs and regions can also be seen. The webpages for these can be accessed here\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area.html}}$^{,}$\footnote{\url{https://github.com/AM-ops/Hons-Project-Documentation/blob/main/Hons-Project-Documentation-Final/Web/melusi_area2.html}}
 The file can be downloaded and thereafter viewed interactively in a browser.
 
 The Building Based Land Usage for 2010 and 2020 can be seen in Figures \ref{fig:mel2010} and \ref{fig:mel2020}
@@ -215,6 +215,13 @@ $\text{RGB[A] to Gray:} \quad Y \leftarrow 0.299 \cdot R + 0.587 \cdot G + 0.114
 \end{center}
 This formula simplified means the Red value of a pixel is multiplied with 0.299, the Green value of the pixel is multiplied with 0.587, and lastly the Blue value of a pixel is multiplied with 0.114. These new three values are summed up to give one value for the pixel in grayscale.
 
+The first three images listed above do not differ greatly visually as they are mainly white and black to start of with. Therefore, the Population Density image is ideal to demonstrate the output of the grayscale operation. Below in Figure \ref{fig:popogray} the output is visualised.
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Figures/Chapter3/popgray}
+\caption{The grayscale image from the Population Density data}
+\label{fig:popogray}
+\end{figure}
 Additionally, the process of scaling the images utilised the \texttt{resize} method\footnote{\url{https://docs.opencv.org/3.4.15/da/d54/group\_\_imgproc\_\_transform.html\#ga47a974309e9102f5f08231edc7e7529d}} which was called. The scale factor was $\frac{1}{3}$. This scale factor was chosen to prevent excess data. At this stage the Data Preprocessing is complete and the only aspect remaining is to to save the images after being processed. For this the \texttt{imwrite} function\footnote{\url{https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html\#gabbc7ef1aa2edfaa87772f1202d67e0ce}} from OpenCV was called for each of the four final images.
 
 Thereafter, the Online Photo Editor, Photopea\footnote{\url{https://www.photopea.com/}} was employed to trim some of the edges of the images. The resulting dimensions of the images were as follows:
@@ -297,12 +304,12 @@ The avant-garde approach which in turn is also intuitive to solve the issues of 
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botleft}
-  \caption{Bottom Left Block}
+  \caption{Bottom Left Cell}
 \end{subfigure}%
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botright}
-  \caption{Bottom Right Block}
+  \caption{Bottom Right Cell}
 \end{subfigure}
 \caption{Edge cases for Bottom Diagonal Cells}
 \begin{center}
@@ -316,12 +323,12 @@ Source: Own Creation (2021)
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/topright}
-  \caption{Top Right Block}
+  \caption{Top Right Cell}
 \end{subfigure}%
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/topleft}
-  \caption{Top Left Block}
+  \caption{Top Left Cell}
 \end{subfigure}
 \caption{Edge cases for Top Diagonal Cells}
 \begin{center}
@@ -335,12 +342,12 @@ Source: Own Creation (2021)
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/topmid}
-  \caption{Top Middle Block}
+  \caption{Top Middle Cell}
 \end{subfigure}%
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/botmid}
-  \caption{Bottom Middle Block}
+  \caption{Bottom Middle Cell}
 \end{subfigure}
 \caption{Edge cases for Middle Column Cells}
 \begin{center}
@@ -354,12 +361,12 @@ Source: Own Creation (2021)
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/midleft}
-  \caption{Middle Left Block}
+  \caption{Middle Left Cell}
 \end{subfigure}%
 \begin{subfigure}{.4\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{Figures/Chapter3/midright}
-  \caption{Middle Right Block}
+  \caption{Middle Right Cell}
 \end{subfigure}
 \caption{Edge cases for Middle Row Cells}
 \begin{center}

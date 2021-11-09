@@ -1,5 +1,28 @@
 % Chapter 4
 \chapter{Results \& Discussion} % Main chapter title
+The CA model was created and run for 50 generations or time steps. An image was generated of the simulated Building Based Land Usage growth and it was saved. The accuracy of the simulated growth was also calculated and saved. The metric involved for calculating the accuracy  was the Kappa coefficient (Also known as the Cohen's Kappa coefficient)
+\begin{center}
+$\kappa = (p_o - p_e) / (1 - p_e)$\\
+or\\
+$\kappa = \frac{(p_o - p_e)}{(1 - p_e)}$
+\end{center}
+$p_o$ is 
+
+\begin{table}[H]
+\centering
+\caption{Interpreting the Kappa coefficient magnitude}
+\label{table:kap}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\multicolumn{1}{c}{Values} & \multicolumn{1}{c}{Magnitude guideline} \\ \midrule
+$\kappa \leq 0$                & No agreement                            \\
+$0 \leq \kappa \leq 0.20$                     & Slight agreement                        \\
+$0.21 \leq \kappa \leq 0.40$                  & Fair agreement                          \\
+$0.41 \leq \kappa \leq 0.60$                  & Moderate agreement                      \\
+$0.61 \leq \kappa \leq 0.804$                  & Substantial agreement                   \\
+$0.81 \leq \kappa \leq 1$                     & Almost perfect agreement                \\ \bottomrule
+\end{tabular}
+\end{table}
 \label{Chapter4} % For referencing the chapter elsewhere, use \ref{Chapter4}
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
