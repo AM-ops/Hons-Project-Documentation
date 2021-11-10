@@ -413,9 +413,32 @@ After the averages of the Cumulative Sums is carried out the frequency of said a
 \caption{Frequency of Averages of the Cumulative Sums in the Roads variable array}
 \label{fig:cumsumroad}
 \end{figure}
-
 \subsection{Cellular Automata Model in Operation}
 \label{sec:runmod}
+The first step before executing the model is to create an Initial State. This was set to the Building Based Land Usage array of 2010. The 2020 array is assigned the Final State. A Temporary copy of the Initial State is also created.
+
+Thereafter the model is run for a total of 50 time periods. In each time period the model begins at the top-left cell of the Initial State and works its way through the entire grid. The cumulative sum operations are calculated for the current cells neighbours and the neighbours in the identical locations in the variable array. The averages thereafter are calculated to determine if the These predefined set of conditional rules as mentioned in the previous section are satisfied. If the conditional rules were satisfied the current cell where the model had reached in the current time period would be 'filled' in by converting all the pixel values of the Temporary array to black. Once a time period is completed the Initial State array is updated by using the Temporary array's 'filled' in values. This prevents unnecessary changes from happening during the modelling process.
+
+The following two steps are carried out before moving on to the next time period.
+\begin{enumerate}
+\item Calculate the accuracy of the current Initial State to the Final State. This is done by flattening both the Building Based Land Usage arrays and thereafter running the \texttt{cohen\_kappa\_score} metric\footnote{\url{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html}} from the Scikit-learn library. Lastly, save the accuracy results.
+\item Write the current Initial State to a new image with a name corresponding to the time period it was created in.
+
+The final conditional rules that were settled on for the CA model are described in the Table \ref{table:rules} below.
+\begin{table}[H]
+\caption{Final rules for the Cellular Automata Model}
+\label{table:rules}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\multicolumn{1}{c}{Time period (t)} & \begin{tabular}[c]{@{}c@{}}Population\\ Condition (p)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Roads\\ Condition (r)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Diagonal\\ Averages (d)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Non-Diagonal\\ Averages (n)\end{tabular} \\ \midrule
+t = 1                               & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\
+t = 2                               & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\
+t = 40                              & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\
+t = 50                              & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\ \bottomrule
+\end{tabular}
+\end{table}
+The details of the metrics is discussed in the next chapter.
+\end{enumerate}  
 \begin{figure}[H]
 \centering
 %\includegraphics[width=20cm,height=15cm,keepaspectratio]{Figures/Chapter3/Folium}
