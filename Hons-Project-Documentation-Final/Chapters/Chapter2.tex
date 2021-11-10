@@ -302,45 +302,12 @@ varied range of accuracies. Some of these factors include:
 \item Social housing
 \end{itemize}
 \end{multicols}
-All of the above with a combination of additional research will now assist the
-author project move to the next step which is the development of the artefact, which
-in this project's case is a model.
-\section{Geographic Information Systems and its Data}
-
-ArcGIS API for Python\footnote{\url{https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/arcgis-api-for-python.htm}}
-\\\\
-ArcGIS API for Python is a Python library for performing GIS visualization and analysis, spatial data management, and GIS system administration tasks that can run both in an interactive fashion and using scripts.
-\\\\
-It enables power users, system administrators, and developers to leverage the SciPy ecosystem for automating their workflows and performing repetitive tasks using scripts. It integrates well with the Jupyter Notebook and enables academics, data scientists, GIS analysts, and visualization enthusiasts to share geoenriched literate programs and reproducible research.
-\\\\
-The online overview describes how to use ArcGIS API for Python to write Python scripts, incorporating capabilities such as mapping, query, analysis, geocoding, routing, portal administration, and more. Browse the sample notebooks to get started.
-\\\\
-GitHub\footnote{\url{https://github.com/Esri/arcgis-python-api}}
-\\\\
-What is ArcPy?\footnote{\url{https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/what-is-arcpy-.htm}}
-ArcPy is a Python site package that provides a useful and productive way to perform geographic data analysis, data conversion, data management, and map automation with Python.
-
-This package provides a rich and native Python experience offering code completion (type a keyword and a dot to get a pop-up list of properties and methods supported by that keyword; select one to insert it) and reference documentation for each function, module, and class.
-
-The additional power of using ArcPy is that Python is a general-purpose programming language. It is interpreted and dynamically typed and is suited for interactive work and quick prototyping of one-off programs known as scripts while being powerful enough to write large applications in. ArcGIS applications written with ArcPy benefit from the development of additional modules in numerous niches of Python by GIS professionals and programmers from many different disciplines.
-
-ArcPy (often referred to as the ArcPy site package) provides Python access for all geoprocessing tools, including extensions, as well as a wide variety of useful functions and classes for working with and interrogating GIS data. Using Python and ArcPy, you can develop an infinite number of useful programs that operate on geographic data.
-\\\\
-QGIS API Documentation\footnote{\url{https://qgis.org/api/}}
-\\\\
-QGIS Python API Documentation\footnote{\url{https://qgis.org/pyqgis/3.10/}}
-\\\\
-The CORE library contains all basic GIS functionality\\
-The GUI library is build on top of the CORE library and adds reusable GUI widgets\\
-The ANALYSIS library is built on top of CORE library and provides high level tools for carrying out spatial analysis on vector and raster data\\
-The SERVER library is built on top of the CORE library and adds map server components to QGIS\\
-The 3D library is build on top of the CORE library and Qt 3D framework\\
-Contains classes related to implementation of QGIS plugins\\
-The QgsQuick library is built on top of the CORE library and Qt Quick/QML framework
 \section{Images and Colour Theory}
 \label{sec:col}
-sfsdfs \cite{imgp} Image processing
-image thresholding \cite{shap}
+In the domain of Image Processing there exists an approach called \textit{thresholding}. This approach takes an image and replaces specific colour values in it with predefined ones. Under normal circumstances a certain range of values are set for where the thresholding should occur.\cite{imgp,shap}
+
+For example, if a range of 250 to 255 is given then any pixel value that falls into this range will be replaced with whatever value the thresholding function has specified.
+
 \textit{Pooling} is a discrete statistical process involving sampling from a given set of inputs and down-sizing or down-sampling the inputs based on rules specified. The process typically achieves this by either using the rules such as averaging, summing or by taking the maximum response of a given sample ( also known as patch).\cite{cnn,pool,murr}. Pooling is vastly utilised in the Image Processing domain and related fields. The Figure \ref{fig:pool} below shows an example of this process.
 \begin{figure}[H]
 \centering

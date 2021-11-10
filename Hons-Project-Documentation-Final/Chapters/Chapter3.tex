@@ -288,14 +288,14 @@ At this point all the four arrays which are synonymous with the four images save
 \end{figure}
 The next logical step is to formulate rules for the CA Model. However before this can be conducted, the Rule of Adjacency from Section \ref{sec:LitCA} can be discussed further. The reason for this is to manage any and all edge cases that may arise while creating the rules for the CA model.
 
-Additionally, the method of referencing blocks based on location should be uniform, therefore below in Figure \ref{fig:labs} the naming conventions for this research are specified. These are also the labels which are used in the code located in Appendix \ref{AppendixC}. 
+Additionally, the method of referencing cells based on location should be uniform, therefore below in Figure \ref{fig:labs} the naming conventions for this research are specified. These are also the labels which are used in the code located in Appendix \ref{AppendixC}. 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{Figures/Chapter3/labels}
-\caption{Naming conventions for neighbours}
+\caption{Naming conventions for neighbours of a cell}
 \label{fig:labs}
 \end{figure}
-The avant-garde approach which in turn is also intuitive to solve the issues of edge cases is to visualise two separate 2-Dimensional arrays. The first is of size $3 \times 3$ (labelled as $A$), and the the other is $n \times n$ (labelled as $B$) where $n$ is of arbitrary value. Thereafter, assign the center block of grid $A$ as the \textit{Current} or \textit{Active} cell, and any of the other neighbouring cells as the edge case to be tested. Place the \textit{Current} cell on top of grid $B$ and align it with the top-left cell of grid $B$. Keeping the grid $B$ static begin to move grid $A$ towards the right-hand side of the grid $B$. Take note of the cells where the current edge case being tested fails. In other words, the edge case's cell lies outside of the grid $B$. All the edge cases can therefore be managed in any grid of size ($n \times n$) if the procedure is followed correctly. In the Figures \ref{fig:e1}, \ref{fig:e2}, \ref{fig:e3}, and \ref{fig:e4} this avant-garde process is demonstrated visually. The colours in the pictures are defined below:
+The avant-garde approach which in turn is also intuitive to solve the issues of edge cases is to visualise two separate 2-Dimensional arrays. The first is of size $3 \times 3$ (labelled as $A$), and the the other is $n \times n$ (labelled as $B$) where $n$ is of arbitrary value. Thereafter, assign the center cell of grid $A$ as the \textit{Current} or \textit{Active} cell, and any of the other neighbouring cells as the edge case to be tested. Place the \textit{Current} cell on top of grid $B$ and align it with the top-left cell of grid $B$. Keeping the grid $B$ static begin to move grid $A$ towards the right-hand side of the grid $B$. Take note of the cells where the current edge case being tested fails. In other words, the edge case's cell lies outside of the grid $B$. All the edge cases can therefore be managed in any grid of size ($n \times n$) if the procedure is followed correctly. In the Figures \ref{fig:e1}, \ref{fig:e2}, \ref{fig:e3}, and \ref{fig:e4} this avant-garde process is demonstrated visually. The colours in the pictures are defined below:
 \begin{itemize}
 \item Green - \textit{Current} or \textit{Active} Cell
 \item Grey - Neighbours of \textit{Current} Cell not being tested at the moment
@@ -382,7 +382,7 @@ Source: Own Creation (2021)
 The rationale behind this lengthy and detail process is due to the following reasons:
 \begin{itemize}
 \item The CA model must not throw any errors while it iterates through the grid
-\item The next step which involves formulating growth rules for the CA model contains the process of splitting the original 3 arrays into $10 \times 10$ sized smaller arrays. This translates to a $10 \times 10$ pixel block in the final images.
+\item The next step which involves formulating growth rules for the CA model contains the process of splitting the original 3 arrays into $10 \times 10$ sized smaller arrays. This translates to a $10 \times 10$ pixel cell in the final images.
 \end{itemize}
 \subsection{Formulation of Rules}
 Referring back to the information provided in Section \ref{sec:imgproc}, the reasoning for having images in the dimensions of 2,160 px by 830 px is clear. These images which are now called \textit{variable arrays} when they are assigned to variables (after being read)  will have the same 2-Dimensional size, hence the step of splitting the variable arrays into smaller subsets is simplified without being wary of outlying values. The grid size for the CA model is therefore in the dimensions of $2,160 \times 830$ elements. The individual cells dimensions in this grid are $10 \times 10$, therefore the total cells present is:
@@ -423,22 +423,20 @@ The following two steps are carried out before moving on to the next time period
 \begin{enumerate}
 \item Calculate the accuracy of the current Initial State to the Final State. This is done by flattening both the Building Based Land Usage arrays and thereafter running the \texttt{cohen\_kappa\_score} metric\footnote{\url{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html}} from the Scikit-learn library. Lastly, save the accuracy results.
 \item Write the current Initial State to a new image with a name corresponding to the time period it was created in.
-
-The final conditional rules that were settled on for the CA model are described in the Table \ref{table:rules} below.
+\end{enumerate}
+The final conditional rules that were settled on for the CA model are described in the Table \ref{table:rules} below. The details of the metrics is discussed in the next chapter.
 \begin{table}[H]
 \caption{Final rules for the Cellular Automata Model}
 \label{table:rules}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-\multicolumn{1}{c}{Time period (t)} & \begin{tabular}[c]{@{}c@{}}Population\\ Condition (p)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Roads\\ Condition (r)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Diagonal\\ Averages (d)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Non-Diagonal\\ Averages (n)\end{tabular} \\ \midrule
-t = 1                               & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\
-t = 2                               & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\
-t = 40                              & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\
-t = 50                              & 0                                                                  & 0                                                             & 0                                                               & 0                                                                   \\ \bottomrule
+\multicolumn{1}{c}{Time period ($t$)} & \begin{tabular}[c]{@{}c@{}}Population\\ Condition ($p$)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Roads\\ Condition ($r$)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Diagonal\\ Averages ($d$)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Non-Diagonal\\ Averages ($n$)\end{tabular} \\ \midrule
+$t = 1$& $p \geq 0.08$ & $r \geq 0.01$ & $d \geq 0.1$ & $n \geq 0.1$\\
+$t = 2$& $p \geq 0.08$ & $r \geq 0.01$ & $d \geq 0.1$ & $n \geq 0.1$\\
+$3 \leq t \leq 40$& $p \geq 0.1$ & $r \geq 0.1$ & $d \geq 0.1$ & $n \geq 0.1$\\
+$41 \leq t \leq 50$& $p \geq 0.05$ & $r \geq 0.09$ & $d \geq 0.15$ & $n \geq 0.1$\\ \bottomrule
 \end{tabular}
-\end{table}
-The details of the metrics is discussed in the next chapter.
-\end{enumerate}  
+\end{table}  
 \begin{figure}[H]
 \centering
 %\includegraphics[width=20cm,height=15cm,keepaspectratio]{Figures/Chapter3/Folium}
