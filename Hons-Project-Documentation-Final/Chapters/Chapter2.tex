@@ -12,18 +12,17 @@
 
 \section{Cellular Automata and Game of Life}
 \label{sec:LitCA}
-Cellular Automata can be modelled in a number of dimensions including anything from one, two, three, four, or more dimensions.\citep{adamatzky2010game} In this project the focus will be on the two dimensional approach using a \textsl{n}-dimensional lattice (will be referred to as a grid). The grid can be of infinite size, however will be limited to a finite space i.e. a predetermined set of cells superimposed over a map of an informal settlement.\\\\
-An individual square in the grid (which will be referred to as a cell) can have upto eight neighbours. This is shown in the diagram below.
+Cellular Automata can be modelled in a number of dimensions including anything from one, two, three, four, or higher dimensions\citep{adamatzky2010game}. In this research study the focus will be on the two dimensional approach using a \textsl{n}-dimensional lattice (which will be referred to as a grid). The grid can be of infinite size, however for the purposes of this research will be limited to a finite space namely a predetermined set of cells superimposed over a map of an informal settlement. An individual square in the grid (which will be referred to as a cell) can have upto and at most eight neighbours. This is shown in the diagram below.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{Figures/Chapter2/cell.png}
+\includegraphics[scale=0.4]{Figures/Chapter2/cell.png}
 \caption{A cell 'c' and its neighbours 'n'}
 \label{fig:cell}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
 \end{figure}
-A cell can have two discrete states for any given discrete time unit (referred to as generation). These states can be 'alive' or 'dead'. A cell is shown to be alive by having it \textsl{shaded} and if it is dead it is left blank.\citep{adamatzky2010game} This is shown in the figure below.
+A cell can have two discrete states for any given time unit (referred to as a generation or time step). These states can be 'alive' or 'dead'. A cell is shown to be alive by having it \textsl{shaded} and if it is dead it is left blank.\citep{adamatzky2010game} This is shown in the figure below.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{Figures/Chapter2/shaded.png}
@@ -68,23 +67,100 @@ Another slightly more advanced setup of \textsl{Life} is shown below.
 Source: Own Creation (2021)
 \end{center}
 \end{figure}
-In a seminal paper by Stephen Wolfram, four classes of CA were proposed according to their behaviour given an initial random condition .\citep{Wolfram1984} These four classes are as follows:
+The four rules of \textit{Life} are shown pictorially below.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule1}
+  \caption{Time step $t = 0$}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule1.1}
+  \caption{Time step $t = 1$}
+\end{subfigure}
+\caption{Rule 1 of \textsl{Life}}
+\begin{center}
+A cell will die if it has less than 2 neighbours.\\
+Source: Own Creation (2021)
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule2}
+  \caption{Time step $t = 0$}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule2}
+  \caption{Time step $t = 1$}
+\end{subfigure}
+\caption{Rule 2 of \textsl{Life}}
+\begin{center}
+A cell has 3 or 2 neighbours it will remain alive in the next cycle or time step.\\
+Source: Own Creation (2021)
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule3}
+  \caption{Time step $t = 0$}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule3.1}
+  \caption{Time step $t = 1$}
+\end{subfigure}
+\caption{Rule 3 of \textsl{Life}}
+\begin{center}
+A cell will die if it has 4 or more neighbours in the next cycle or time step.
+Source: Own Creation (2021)
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule4}
+  \caption{Time step $t = 0$}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Figures/Chapter2/rule4.1}
+  \caption{Time step $t = 1$}
+\end{subfigure}
+\caption{Rule 4 of \textsl{Life}}
+\begin{center}
+If a dead cell is surrounded by 3 alive cells it will become alive in the next cycle or time step.\\
+Source: Own Creation (2021)
+\end{center}
+\end{figure}
+
+In a seminal paper by Stephen Wolfram, four classes of CA were proposed according to their behaviour given an initial random condition\citep{Wolfram1984}. These four classes are as follows:
 \begin{itemize}
-\item Class 1 - After a finite number of generations a unique homogeneous state is reached i.e. all cells become the same eventually.
+\item Class 1 - After a finite number of time steps a unique homogeneous state is reached i.e. all cells become the same eventually.
 \item Class 2 - Simple structures are generated which are either periodic, or stable (also called persistent).
 \item Class 3 - An aperiodic (or chaotic) patterns emerge which carry on indefinitely.
-\item Class 4 - Capable of universal computations i.e. can exhibit complex behaviour. 
+\item Class 4 - Capable of universal computations namely, can exhibit complex behaviour. 
 \end{itemize}
-Due to the nature of the rules of \textsl{Life} certain patterns emerge. This is thanks to the cycles of repeated stated which evolve over certain number of generations. These patterns include still-lifes, period two (or \textsl{blinkers}), gliders, oscillators, glider guns, and puffer trains.\citep{adamatzky2010game}
-
-From Set Theory using a 2-Dimensional grid or an array the Adjacency of any two "squares" or "cells" in the grid can be defined as:\cite{aima}
+Due to the nature of the rules of \textsl{Life} certain patterns emerge. This is thanks to the cycles of repeated stated which evolve over certain number of generations. These patterns include still-lifes, period two (or \textsl{blinkers}), gliders, oscillators, glider guns, and puffer trains\citep{adamatzky2010game}.
+\\\\
+From Set Theory using a 2-Dimensional grid or an array the Adjacency of any two squares or cells in the grid can be defined as:\cite{aima}
 \begin{center}
 $\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$\\\textit{if and only if}\\$(x = a \land (y = b - 1 \lor y = b + 1)) \lor (y = b \land (x = a - 1 \lor x = a + 1))$
 \end{center}
 Given a set of $[a, b]$ coordinates which can be defined in a 2-Dimensional grid or Cartesian plane with a corresponding to $x$ and $b$ corresponding to $y$. The $[a, b]$ values can then be changed according to rule specified. The Figure \ref{fig:ruleadj} below demonstrates this rule in a diagrammatical manner.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{Figures/Chapter2/adjacent}
+\includegraphics[scale=0.65]{Figures/Chapter2/adjacent}
 \caption{Rule for Adjacency}
 \label{fig:ruleadj}
 \end{figure}
@@ -98,21 +174,23 @@ $\forall x, y, a, b$ \textit{Adjacent}$([x, y], [a, b])$ \\ \textit{if and only 
 This configuration for the adjacency rule is known as the \textit{Moore neighbourhood}\cite{ca}. The Figure \ref{fig:ruleadj2} below demonstrates this rule in a diagrammatical manner once again.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{Figures/Chapter2/adjacent2}
+\includegraphics[scale=0.65]{Figures/Chapter2/adjacent2}
 \caption{Rule for Adjacency Revised}
 \label{fig:ruleadj2}
 \end{figure}
 \begin{center}
 Source: Own Creation (2021)
 \end{center}
+The rationale behind discussing the theory of Adjacency is it can lead to better understanding of CA and its implementations, and applications.
 
-The applications of CA and, or \textsl{Life} have sparked a number of research papers in fields such as physics, music, complexity, and computation. \\
-Examples in physics include, interaction between a complex system and electromagnetic radiation \citep{conti}, an implementation of \textsl{Life} with quantum features.\citep{quantum}\\
-Implementations in music include the development of CAMUS (\textbf{C}ellular \textbf{A}utomata \textbf{Mus}ic).\citep{music}\\
-In the fields of complexity, and computation a vast array of work has been done therefore a few examples include; Universal Computer-Constructor in CA \citep{gou}, and creation of a Turing Machine in \textsl{Life}.\citep{ren}
+The applications of CA and, or \textsl{Life} have sparked a number of research papers in fields such as physics, music, complexity, and computation.
+
+Examples in physics include, interaction between a complex system and electromagnetic radiation \citep{conti}, an implementation of \textsl{Life} with quantum features\citep{quantum}.Implementations in music include the development of CAMUS (\textbf{C}ellular \textbf{A}utomata \textbf{Mus}ic)\citep{music}. In the fields of complexity, and computation a vast array of work has been done therefore a few examples include; Universal Computer-Constructor in CA \citep{gou}, and creation of a Turing Machine in \textsl{Life}\citep{ren}.
 \section{Informal settlements}
-Informal settlements are housing dwellings that are part of urban districts or neighbourhoods that arise and develop without oversight or control from the state. They are synonymous with 'slums' or 'squatters', though are not the same. They form an integral element of urban sustainability whereby developing cities can not develop without them. The connotations with 'informal', 'slums', and 'squatter' have always been seen in a negative light. This is not seen as beneficial as the growth of urbanisation is highly intertwined with informal settlements.\citep{dovey2011forms}\\
-Across the globe informal settlements are known colloquially by their own variety of terms. \citep{un} In this project the umbrella term informal settlement will be utilised.\\
+Informal settlements are housing dwellings that are part of urban districts or neighbourhoods that arise and develop without oversight or control from the state. They are synonymous with 'slums' or 'squatters', though are not the same. They form an integral element of urban sustainability whereby developing cities can not develop without them. The connotations with 'informal', 'slums', and 'squatter' have always been seen in a negative light. This is not seen as beneficial as the growth of urbanisation is highly intertwined with informal settlements\citep{dovey2011forms}.
+
+Across the globe informal settlements are known colloquially by their own variety of terms\citep{un}. In this research study the umbrella term informal settlement will be utilised.
+
 The process or principles of informal settlements growth can be grouped into three categories namely;\citep{dovey2011forms}
 \begin{itemize}
 \item \textsl{settling} - simply settling down on what is usually unclaimed land
@@ -130,18 +208,22 @@ In morphological terms, informal settlements can be classified into eight differ
 \item Backstages - Settlements hidden from the public's gaze. Becomes more informal the \textsl{'deeper'} one goes from a formal street frontage.
 \item Enclosures - Settlements where the \textsl{'shell'} is contained with in another urban building.
 \end{itemize}
-Informal settlement residents just like the residents of formal settlements have a desire for a good quality of life. Factors that influence this quality of life include food storage and preparation, water, sanitation, air quality and pollution, electricity, health risks, access to public facilities and amenities, among other things.\citep{richards2007measuring}\\
-Richards et al. (2007), further sates that everyday problems such as unemployment, and crime also influence the quality of life. The paper further stipulates that the research can be expanded further to look into spatial and temporal factors that influence informal settlements.\\\\
-The characteristics of informal settlements transcend the physical and are closely knitted with socio-economic as well as political conditions.\citep{wekesa}
+Informal settlement residents just like the residents of formal settlements have a desire for a good quality of life. Factors that influence this quality of life include food storage and preparation, water, sanitation, air quality and pollution, electricity, health risks, access to public facilities and amenities, among other things\citep{richards2007measuring}.
+
+Richards et al. (2007), further sates that everyday problems such as unemployment, and crime also influence the quality of life. The paper further stipulates that the research can be expanded further to look into spatial and temporal factors that influence informal settlements.
+
+The characteristics of informal settlements transcend the physical and are closely knitted with socio-economic as well as political conditions\citep{wekesa}.
 \section{Modelling Urban Development}
 \subsection{Historical Overview}
-Historically, speaking humans have been pivoting between two standards namely; migrations and settlements. These standards have been driven by factors such as social, political, environmental, security, adventure to name a few.\cite{mum}
+Historically, speaking humans have been pivoting between two standards namely; migrations and settlements. These standards have been driven by factors such as social, political, environmental, security, adventure to name a few\cite{mum}.
 
 \subsection{Theories in Urban Planning}
 
-The phenomenon of urbanisation in the last century has drastically increased from a mere 13\% in 1900 to a 49\% in 2005. The current projected estimates for the year 2030 in 60\%. The majority of this urbanisation is still going to occur in the developing nations.\citep{un2005}\\\\
-One of the three factors that is going to influence humans directly in the near future is the land-use/land cover change. This will affect policy makers, geographers, and planners all alike. This is thanks to the socio–environmental consequences of the spatio-temporal process of urban development.\citep{vitousek1994beyond,liu2008modelling}\\\\
-When it comes to geographic models they can be categorised into three categories of increasing abstraction.\citep{thomas1980modelling} The models are as follows:
+The phenomenon of urbanisation in the last century has drastically increased from a mere 13\% in 1900 to a 49\% in 2005. The current projected estimates for the year 2030 in 60\%. The majority of this urbanisation is still going to occur in the developing nations\citep{un2005}.
+
+One of the three factors that is going to influence humans directly in the near future is the land-use/land cover change. This will affect policy makers, geographers, and planners all alike. This is thanks to the socio–environmental consequences of the spatio-temporal process of urban development\citep{vitousek1994beyond,liu2008modelling}.
+
+When it comes to geographic models they can be categorised into three categories of increasing abstraction\citep{thomas1980modelling}. The models are as follows:
 \begin{itemize}
 \item Scale
 \begin{itemize}
@@ -155,7 +237,8 @@ When it comes to geographic models they can be categorised into three categories
 \item Deterministic 
 \end{itemize}
 \end{itemize}
-The mathematical models are therefore the highest level of abstraction. Scale models mimic reality but are miniaturised copies of the real world. The main difference between Iconic and Analogue is the later besides being replicas they tend to transform certain properties of the real world system, e.g. using wool for clouds. Conceptual models are concerned with the relationships that exist between components in the system e.g. a sewage system can be denoted with arrows and boxes on a diagram. Mathematical models if in their purest form translate a conceptual model in to pure, formal, and symbolic logic of mathematics.\citep{thomas1980modelling}\\\\
+The mathematical models are therefore the highest level of abstraction. Scale models mimic reality but are miniaturised copies of the real world. The main difference between Iconic and Analogue is the later besides being replicas they tend to transform certain properties of the real world system, e.g. using wool for clouds. Conceptual models are concerned with the relationships that exist between components in the system e.g. a sewage system can be denoted with arrows and boxes on a diagram. Mathematical models if in their purest form translate a conceptual model in to pure, formal, and symbolic logic of mathematics\citep{thomas1980modelling}.
+
 The flow chart of the modelling process is shown below.
 \begin{center}
 \begin{tikzpicture}[node distance=2cm]
@@ -179,16 +262,18 @@ The flow chart of the modelling process is shown below.
 \end{tikzpicture}
 \\Source: Own Creation (2021) adapted from \citep{liu2008modelling}
 \end{center}
-Before continuing it should be noted that one of the major pitfalls of models are they are a simplified view of reality, hence they can tend to leave certain facts behind of reality.\citep{liu2008modelling}\\\\
-One of the earliest models created in geography and urban modelling dates back to the 1800s where Johann Heinrich von Th{\"u}nen in his book titled \textsl{Der isolierte Staat} translated to mean \textsl{The Isolated State} discussed maximising agricultural production.\citep{clark1967thunen}
+Before continuing it should be noted that one of the major pitfalls of models are they are a simplified view of reality, hence they can tend to leave certain facts behind of reality\citep{liu2008modelling}.
 
-Other seminal research included the like of Alfred Weber in the early 1900s published the title \textsl{{\"U}ber den Standort der Industrien} which translates to \textsl{Theory of the Location of Industries}. This work created models based on real-world conditions.\citep{fearon2006alfred}
+One of the earliest models created in geography and urban modelling dates back to the 1800s where Johann Heinrich von Th{\"u}nen in his book titled \textsl{Der isolierte Staat} translated to mean \textsl{The Isolated State} discussed maximising agricultural production\citep{clark1967thunen}.
 
-The seminal work on the three classical models of urban structure, growth, and urban land usage patterns was done by a number of authors. The models include Concentric Zone Theory, Sector model, and the Multiple nuclei model.\citep{liu2008modelling}
-These models laid the foundations for later computer based models to emerge in the field of urban modelling. The early works include techniques on simulation, linear analysis, and mathematical programming.\citep{kilbridge1970population}
+Other seminal research included the like of Alfred Weber in the early 1900s published the title \textsl{{\"U}ber den Standort der Industrien} which translates to \textsl{Theory of the Location of Industries}. This work created models based on real-world conditions\citep{fearon2006alfred}.
+
+The seminal work on the three classical models of urban structure, growth, and urban land usage patterns was done by a number of authors. The models include Concentric Zone Theory, Sector model, and the Multiple nuclei model\citep{liu2008modelling}.
+
+These models laid the foundations for later computer based models to emerge in the field of urban modelling. The early works include techniques on simulation, linear analysis, and mathematical programming\citep{kilbridge1970population}.
 Among the first studies carried out on simulations of real-world cases using urban CA was done by \citep{batty}.
 
-The meta-analysis carried out by Sante et al. (2010) showed that a number of characteristics are utilised in each of the studies that resulted in a varied range of accuracy for the models implemented in CA for urban growth.\citep{ca1}
+The meta-analysis carried out by Sante et al. (2010) showed that a number of characteristics are utilised in each of the studies that resulted in a varied range of accuracy for the models implemented in CA for urban growth\citep{ca1}.
 A few characteristics are:
 \begin{itemize}
 \item Cell space
@@ -199,6 +284,7 @@ A few characteristics are:
 \end{itemize}
 Additional factors were also implemented which also helped in creating a
 varied range of accuracies. Some of these factors include:
+\begin{multicols}{2}
 \begin{itemize}
 \item Accessibility of transport
 \item Distance to railways, airports, and urban centres
@@ -215,8 +301,9 @@ varied range of accuracies. Some of these factors include:
 \item Water supply
 \item Social housing
 \end{itemize}
-All of the above with a combination of additional research will now help the
-project move to the next step which is the development of the artefact, which
+\end{multicols}
+All of the above with a combination of additional research will now assist the
+author project move to the next step which is the development of the artefact, which
 in this project's case is a model.
 \section{Geographic Information Systems and its Data}
 
